@@ -4,7 +4,7 @@ plugins {
     application
 }
 
-group = "io.github.thanosfisherman.libgdxbootstrapper.desktop"
+group = "io.github.thanosfisherman.game.desktop"
 version = "1.0-SNAPSHOT"
 
 dependencies {
@@ -17,7 +17,7 @@ tasks.test {
 }
 
 application {
-    mainClass.set("io.github.thanosfisherman.libgdxbootstraper.DesktopLuncherKt")
+    mainClass.set("io.github.thanosfisherman.game.desktop.DesktopLauncher")
 }
 
 

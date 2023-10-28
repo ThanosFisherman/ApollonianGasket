@@ -4,6 +4,6 @@ plugins {
 }
 
 allprojects {
-    group = "io.github.thanosfisherman.libgdxbootstrapper"
+    group = "io.github.thanosfisherman.game"
     version = "1.0-SNAPSHOT"
 }

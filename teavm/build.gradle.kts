@@ -3,7 +3,7 @@ plugins {
     kotlin("jvm")
 }
 
-group = "io.github.thanosfisherman.libgdxbootstrapper.teavm"
+group = "io.github.thanosfisherman.game.teavm"
 version = "1.0-SNAPSHOT"
 
 
