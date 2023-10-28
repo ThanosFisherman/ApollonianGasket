@@ -4,6 +4,7 @@ pluginManagement {
         mavenCentral()
         maven("https://jitpack.io")
         maven("https://teavm.org/maven/repository/")
+        google()
         gradlePluginPortal()
     }
 }
@@ -24,3 +25,4 @@ rootProject.name = "libgdx-bootstrapper"
 include("teavm")
 include("desktop")
 include("core")
+include(":android")
