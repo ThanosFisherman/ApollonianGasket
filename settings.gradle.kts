@@ -25,4 +25,4 @@ rootProject.name = "libgdx-bootstrapper"
 include("teavm")
 include("desktop")
 include("core")
-include(":android")
+include("android")

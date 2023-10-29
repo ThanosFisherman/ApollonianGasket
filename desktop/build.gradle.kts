@@ -23,10 +23,10 @@ application {
 
 tasks {
     jar {
+        archiveBaseName.set("${project.property("name")}")
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         from(files(sourceSets.main.get().output.classesDirs))
         from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
-
-        archiveBaseName.set("${project.property("name")}")
 
         manifest {
             attributes["Main-Class"] = application.mainClass.get()

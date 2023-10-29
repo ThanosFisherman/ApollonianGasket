@@ -7,6 +7,36 @@ android {
     namespace = "io.github.thanosfisherman.game.android"
     compileSdk = 34
 
+    sourceSets {
+        getByName("main") {
+            manifest.srcFile("src/main/AndroidManifest.xml")
+            java.srcDirs("src/main/java")
+            kotlin.srcDirs("src/main/kotlin")
+            aidl.srcDirs("src/main/java")
+            renderscript.srcDirs("src/main/java")
+            res.srcDirs("res")
+            assets.srcDirs("../assets")
+            jniLibs.srcDirs("libs")
+        }
+
+        getByName("test") {
+            setRoot("src/test")
+            assets.srcDirs("src/test/assets")
+        }
+
+        testOptions {
+            unitTests.isReturnDefaultValues = true
+            /**
+             * Gradle Daemons that is executing the tests on the build server has Java heap size set
+             * to 512MB by default, changing it to 4GB is equal to setup with local machine with 16GB
+             * and prevents the test to run into OutOfMemory Errors in tests
+             */
+            unitTests.all {
+                it.jvmArgs("-Xmx8g")
+            }
+        }
+    }
+
     defaultConfig {
         applicationId = "io.github.thanosfisherman.game.android"
         minSdk = 24
@@ -45,7 +75,23 @@ android {
 //    }
     packaging {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes.apply {
+                add("/META-INF/{AL2.0,LGPL2.1}")
+                add("META-INF/robovm/ios/robovm.xml")
+                add("META-INF/DEPENDENCIES.txt")
+                add("META-INF/DEPENDENCIES")
+                add("META-INF/dependencies.txt")
+                add("**/*.gwt.xml")
+            }
+            pickFirsts.apply {
+                add("META-INF/LICENSE.txt")
+                add("META-INF/LICENSE")
+                add("META-INF/license.txt")
+                add("META-INF/LGPL2.1")
+                add("META-INF/NOTICE.txt")
+                add("META-INF/NOTICE")
+                add("META-INF/notice.txt")
+            }
         }
     }
 }
