@@ -1,6 +1,5 @@
 pluginManagement {
     repositories {
-        mavenLocal()
         mavenCentral()
         maven("https://jitpack.io")
         maven("https://teavm.org/maven/repository/")
@@ -10,7 +9,7 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    //repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()

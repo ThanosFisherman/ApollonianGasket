@@ -1,7 +1,6 @@
 plugins {
     java
     kotlin("jvm")
-    application
 }
 
 group = "io.github.thanosfisherman.game"
