@@ -1,6 +1,20 @@
+//
+//buildscript {
+//    repositories {
+//        google()
+//        mavenCentral()
+//        gradlePluginPortal()
+//    }
+//    dependencies {
+//        classpath(Dependencies.Plugins.ANDROID_GRADLE_PLUGIN)
+//        //classpath(Dependencies.Plugins.KOTLIN_GRADLE_PLUGIN)
+//    }
+//}
+
 plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
+
 }
 
 repositories {
@@ -10,8 +24,8 @@ repositories {
 }
 
 dependencies {
-    compileOnly(Deps.Plugins.ANDROID_GRADLE_PLUGIN)
-    compileOnly(Deps.Plugins.KOTLIN_GRADLE_PLUGIN)
+    compileOnly(Dependencies.Plugins.ANDROID_GRADLE_PLUGIN)
+    compileOnly(Dependencies.Plugins.KOTLIN_GRADLE_PLUGIN)
 }
 
 tasks.withType<Test>().configureEach {
@@ -23,7 +37,9 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
 }
-
+tasks.getByName<Delete>("clean") {
+    delete(rootProject.layout.buildDirectory)
+}
 kotlin {
     jvmToolchain(17)
 }

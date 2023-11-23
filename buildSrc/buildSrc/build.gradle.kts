@@ -12,7 +12,7 @@ repositories {
 sourceSets.main {
     java {
         setSrcDirs(setOf(projectDir.parentFile.resolve("src/main/kotlin")))
-        include("Deps.kt")
+        include("Dependencies.kt")
         include("Versions.kt")
     }
 }
