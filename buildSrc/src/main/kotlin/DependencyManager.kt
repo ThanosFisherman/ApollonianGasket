@@ -11,7 +11,7 @@ fun DependencyHandler.addDesktopDependencies() {
 
 fun DependencyHandler.addAndroidDependencies() {
     implementation(project(ModuleDependencies.CORE))
-    Dependencies.DesktopDependency.getAll().forEach { implementation(it) }
+    Dependencies.AndroidDependency.getAll().forEach { implementation(it) }
 }
 
 fun DependencyHandler.addGraalDesktopDependencies() {
