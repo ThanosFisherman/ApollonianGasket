@@ -1,5 +1,6 @@
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
+import org.gradle.jvm.toolchain.JavaLanguageVersion
 
 object Versions {
 
@@ -15,9 +16,9 @@ object Versions {
     // endregion
 
     object Android {
-        const val compileSdkVersion = 33
+        const val compileSdkVersion = 34
         const val minSdkVersion = 23
-        const val targetSdkVersion = 33
+        const val targetSdkVersion = 34
     }
 
     object Plugins {
@@ -35,13 +36,10 @@ object Versions {
     object Java {
         val sourceCompatibility = JavaVersion.VERSION_17
         val targetCompatibility = JavaVersion.VERSION_17
+        val javaToolchainVersion = JavaLanguageVersion.of(17)
     }
 
     object Kotlin {
-        /**
-         * Keep "1.8" instead of "11" to fix this issue: Cannot inline bytecode built with
-         * JVM target 11 into bytecode that is being built with JVM target 1.8.
-         */
-        const val jvmTarget = "1.8"
+        const val jvmTarget = "17"
     }
 }

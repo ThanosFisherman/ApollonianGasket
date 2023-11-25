@@ -1,14 +1,5 @@
 plugins {
-    java
-    kotlin("jvm")
-}
-
-group = "io.github.thanosfisherman.game"
-version = "1.0-SNAPSHOT"
-
-dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.9.1"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
+    `base-plugin-kotlin`
 }
 
 tasks.test {
@@ -20,4 +11,9 @@ sourceSets {
     main {
         resources.srcDir(assetsDir)
     }
+}
+
+dependencies {
+    testImplementation(platform("org.junit:junit-bom:5.9.1"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
 }

@@ -24,7 +24,6 @@ object Dependencies {
         const val ANDROID_LIBRARY_APPLY = "com.android.library"
         const val GOOGLE_PLAY_SERVICES_APPLY = "com.google.gms.google-services"
         const val JACOCO_APPLY = "jacoco"
-        const val JACOCO_REPORT_APPLY = "jacoco-report"
         const val JAVA_LIBRARY_APPLY = "java-library"
         const val KOTLIN_ALL_OPEN_APPLY = "kotlin-allopen"
         const val KOTLIN_ANDROID_APPLY = "org.jetbrains.kotlin.android"

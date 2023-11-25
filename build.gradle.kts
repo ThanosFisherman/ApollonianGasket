@@ -1,9 +1,8 @@
 plugins {
-    id("com.android.application") version Versions.Plugins.agpVersion apply false
-    id("com.android.library") version Versions.Plugins.agpVersion apply false
-    id("org.jetbrains.kotlin.android") version Versions.Plugins.kgpVersion apply false
-    id("org.jetbrains.kotlin.jvm") version Versions.Plugins.kgpVersion apply false
-    java
+    //id("com.android.application") version Versions.Plugins.agpVersion apply false
+    //id("com.android.library") version Versions.Plugins.agpVersion apply false
+    //id("org.jetbrains.kotlin.android") version Versions.Plugins.kgpVersion apply false
+    //id("org.jetbrains.kotlin.jvm") version Versions.Plugins.kgpVersion
     base
 }
 

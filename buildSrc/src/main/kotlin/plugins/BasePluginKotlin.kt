@@ -1,4 +1,3 @@
-
 package plugins
 
 import Dependencies
@@ -6,7 +5,7 @@ import Versions
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 
 /**
  * Configures the module as a kotlin library.
@@ -20,13 +19,21 @@ class BasePluginKotlin : Plugin<Project> {
         pluginManager.apply(Dependencies.Plugins.KOTLIN_JVM_APPLY)
 
         project.extensions.configure<JavaPluginExtension>("java") {
-            sourceCompatibility = Versions.Java.sourceCompatibility
-            targetCompatibility = Versions.Java.targetCompatibility
+            toolchain {
+                languageVersion.set(Versions.Java.javaToolchainVersion)
+            }
+//            sourceCompatibility = Versions.Java.sourceCompatibility
+//            targetCompatibility = Versions.Java.targetCompatibility
         }
 
-
-        project.tasks.withType(KotlinCompile::class.java) {
-            kotlinOptions.jvmTarget = Versions.Kotlin.jvmTarget
+        project.extensions.configure<KotlinJvmProjectExtension>("kotlin") {
+            jvmToolchain {
+                languageVersion.set(Versions.Java.javaToolchainVersion)
+            }
         }
+
+//        project.tasks.withType(KotlinCompile::class.java) {
+//            kotlinOptions.jvmTarget = Versions.Kotlin.jvmTarget
+//        }
     }
 }
