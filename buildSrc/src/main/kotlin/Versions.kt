@@ -11,7 +11,7 @@ object Versions {
     const val kotlinxDateTime = "0.3.0"
     const val kotlinSerialization = "1.3.1"
     const val navigation = "2.5.3"
-    const val realm = "1.5.2"
+
 
     // endregion
 
@@ -27,10 +27,15 @@ object Versions {
 
         const val desugaring = "1.2.2"
 
-
         const val googlePlayServices = "4.3.10"
 
         const val undercouch = "4.1.2"
+    }
+
+    object Libgdx {
+        const val gdxVersion = "1.12.1"
+        const val gdxControllersVersion = "2.2.1"
+        const val graalVersion = "-SNAPSHOT"
     }
 
     object Java {
