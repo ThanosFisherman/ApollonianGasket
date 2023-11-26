@@ -1,8 +1,6 @@
 plugins {
-  `base-plugin-android`
+    `base-plugin-android`
 }
-
-
 
 dependencies {
 
@@ -26,4 +24,8 @@ dependencies {
     // androidTestImplementation("androidx.compose.ui:ui-test-junit4")
 //    debugImplementation("androidx.compose.ui:ui-tooling")
 //    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    addAndroidDependencies()
+
 }
+
+registerAndroidTasks()

@@ -1,12 +1,9 @@
-
 package plugins
 
 import BuildType
 import Dependencies
 import Versions
-import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
-import coreLibraryDesugaring
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
@@ -26,11 +23,12 @@ class BasePluginAndroid : Plugin<Project> {
         pluginManager.apply(Dependencies.Plugins.KOTLIN_ANDROID_APPLY)
         pluginManager.apply(Dependencies.Plugins.ANDROID_APPLICATION_APPLY)
 //        pluginManager.apply(Dependencies.Plugins.KOTLIN_PARCELIZE_APPLY)
-       // pluginManager.apply(Dependencies.Plugins.KOTLIN_KAPT_APPLY)
+        // pluginManager.apply(Dependencies.Plugins.KOTLIN_KAPT_APPLY)
 
         project.dependencies {
             //coreLibraryDesugaring(Dependencies.Plugins.DESUGARING_PLUGIN)
         }
+        project.configurations.create("natives")
         project.extensions.configure<BaseAppModuleExtension>("android") {
             namespace = "io.github.thanosfisherman.game.android"
             compileSdk = Versions.Android.compileSdkVersion
@@ -60,7 +58,7 @@ class BasePluginAndroid : Plugin<Project> {
                      * and prevents the test to run into OutOfMemory Errors in tests
                      */
                     unitTests.all {
-                        it.jvmArgs("-Xmx8g")
+                        it.jvmArgs("-Xmx4g")
                     }
                 }
             }
@@ -96,7 +94,7 @@ class BasePluginAndroid : Plugin<Project> {
             }
 
             compileOptions {
-               // isCoreLibraryDesugaringEnabled = true
+                // isCoreLibraryDesugaringEnabled = true
                 sourceCompatibility = Versions.Java.sourceCompatibility
                 targetCompatibility = Versions.Java.targetCompatibility
             }

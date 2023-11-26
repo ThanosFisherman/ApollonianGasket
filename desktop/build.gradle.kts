@@ -1,3 +1,5 @@
+import org.gradle.jvm.tasks.Jar
+
 plugins {
     `base-plugin-kotlin`
     application
@@ -18,18 +20,4 @@ tasks.test {
 
 application {
     mainClass.set("io.github.thanosfisherman.game.desktop.DesktopLauncher")
-}
-
-
-tasks {
-    jar {
-        archiveBaseName.set("${project.property("name")}")
-        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-        from(files(sourceSets.main.get().output.classesDirs))
-        from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
-
-        manifest {
-            attributes["Main-Class"] = application.mainClass.get()
-        }
-    }
 }

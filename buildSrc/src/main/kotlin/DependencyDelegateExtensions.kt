@@ -19,6 +19,9 @@ fun DependencyHandler.implementation(
 fun DependencyHandler.implementation(dependencyNotation: Any): Dependency? =
     add("implementation", dependencyNotation)
 
+fun DependencyHandler.natives(dependencyNotation: Any): Dependency? =
+    add("natives", dependencyNotation)
+
 fun DependencyHandler.developmentImplementation(dependencyNotation: Any): Dependency? =
     add("developmentImplementation", dependencyNotation)
 

@@ -19,10 +19,6 @@ tasks.withType<Test>().configureEach {
     testLogging { showStandardStreams = true }
 }
 
-kotlin {
-    jvmToolchain(17)
-}
-
 gradlePlugin {
     plugins {
         register("base-plugin-kotlin") {

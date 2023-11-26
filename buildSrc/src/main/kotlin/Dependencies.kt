@@ -59,12 +59,18 @@ object Dependencies {
         const val controllers =
             "com.badlogicgames.gdx-controllers:gdx-controllers-android:${Versions.Libgdx.gdxControllersVersion}"
 
+        fun getAll() =
+            AndroidDependency::class.memberProperties.filter { it.isConst }.map { it.getter.call().toString() }.toSet()
+    }
+
+    object AndroidNativesDependency {
         const val arm64v8a = "com.badlogicgames.gdx:gdx-platform:${Versions.Libgdx.gdxVersion}:natives-arm64-v8a"
         const val armeabiv7a = "com.badlogicgames.gdx:gdx-platform:${Versions.Libgdx.gdxVersion}:natives-armeabi-v7a"
         const val nativesX86 = "com.badlogicgames.gdx:gdx-platform:${Versions.Libgdx.gdxVersion}:natives-x86"
         const val nativesX86_64 = "com.badlogicgames.gdx:gdx-platform:${Versions.Libgdx.gdxVersion}:natives-x86_64"
         fun getAll() =
-            AndroidDependency::class.memberProperties.filter { it.isConst }.map { it.getter.call().toString() }.toSet()
+            AndroidNativesDependency::class.memberProperties.filter { it.isConst }.map { it.getter.call().toString() }.toSet()
+
     }
 
     object CoreDependency {
