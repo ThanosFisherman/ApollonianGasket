@@ -21,3 +21,5 @@ tasks.test {
 application {
     mainClass.set("io.github.thanosfisherman.game.desktop.DesktopLauncher")
 }
+
+registerDesktopTasks(application.mainClass.get())

@@ -1,23 +1,41 @@
 import org.gradle.api.Project
+import org.gradle.api.file.DuplicatesStrategy
 import org.gradle.api.tasks.Copy
 import org.gradle.api.tasks.Exec
+import org.gradle.jvm.tasks.Jar
+import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.getByName
 import org.gradle.kotlin.dsl.register
-import java.util.Properties
+import java.io.File
+import java.util.*
 
-fun Project.registerDesktopTasks() {
+fun Project.registerDesktopTasks(mainClass: String) {
 
-//tasks.register<Jar>("jar") {
-//    archiveBaseName.set("${project.property("name")}")
-//    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-//    from(files(sourceSets.main.get().output.classesDirs))
-//    from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
-//
-//    manifest {
-//        attributes["Main-Class"] = application.mainClass.get()
-//    }
-//}
+    tasks.getByName<Jar>("jar") {
+        archiveBaseName.set(project.name)
+        val destDir = file(project.layout.buildDirectory.asFile.get().absolutePath + File.separator + "lib")
+        destinationDirectory.set(destDir)
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        dependsOn(configurations.named("runtimeClasspath"))
 
-
+        //from(files(sourceSets.main.get().output.classesDirs))
+        from(configurations.named("runtimeClasspath").get().map { if (it.isDirectory) it else zipTree(it) })
+        excludes.apply {
+            add("META-INF/INDEX.LIST")
+            add("META-INF/*.SF")
+            add("META-INF/*.DSA")
+            add("META-INF/*.RSA")
+        }
+        dependencies {
+            exclude("META-INF/INDEX.LIST", "META-INF/maven/**")
+        }
+        manifest {
+            attributes["Main-Class"] = mainClass
+        }
+        doLast {
+            file(archiveFile).setExecutable(true, false)
+        }
+    }
 }
 
 fun Project.registerAndroidTasks() {
