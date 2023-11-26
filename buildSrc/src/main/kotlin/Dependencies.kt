@@ -22,6 +22,8 @@ object Dependencies {
 
         const val UNDERCOUCH = "de.undercouch:gradle-download-task:${Versions.Plugins.undercouch}"
 
+        const val GRETTY_PLUGIN = "org.gretty:gretty:${Versions.Plugins.grettyVersion}"
+
         const val ANDROID_APPLICATION_APPLY = "com.android.application"
         const val ANDROID_LIBRARY_APPLY = "com.android.library"
         const val GOOGLE_PLAY_SERVICES_APPLY = "com.google.gms.google-services"
@@ -39,6 +41,7 @@ object Dependencies {
         const val SONAR_PLUGIN_APPLY = "sonar-plugin"
         const val SONARQUBE_APPLY = "org.sonarqube"
         const val UNDERCOUCH_APPLY = "de.undercouch.download"
+        const val GRETTY_APPLY = "org.gretty"
         // NOTE TO DEVS: Please keep alphabetical order for readability and extendability
     }
 
@@ -51,6 +54,18 @@ object Dependencies {
 
         fun getAll() =
             DesktopDependency::class.memberProperties.filter { it.isConst }.map { it.getter.call().toString() }.toSet()
+    }
+
+    object TeaVMDependency {
+
+        const val gdxTeaVM = "com.github.xpenatan.gdx-teavm:backend-teavm:${Versions.Libgdx.gdxTeaVMVersion}"
+
+        // FreeType extension
+        const val gdxTeaVMFreeType =
+            "com.github.xpenatan.gdx-teavm:gdx-freetype-teavm:${Versions.Libgdx.gdxTeaVMVersion}"
+
+        fun getAll() =
+            TeaVMDependency::class.memberProperties.filter { it.isConst }.map { it.getter.call().toString() }.toSet()
     }
 
     object AndroidDependency {
@@ -69,7 +84,8 @@ object Dependencies {
         const val nativesX86 = "com.badlogicgames.gdx:gdx-platform:${Versions.Libgdx.gdxVersion}:natives-x86"
         const val nativesX86_64 = "com.badlogicgames.gdx:gdx-platform:${Versions.Libgdx.gdxVersion}:natives-x86_64"
         fun getAll() =
-            AndroidNativesDependency::class.memberProperties.filter { it.isConst }.map { it.getter.call().toString() }.toSet()
+            AndroidNativesDependency::class.memberProperties.filter { it.isConst }.map { it.getter.call().toString() }
+                .toSet()
 
     }
 
@@ -78,9 +94,44 @@ object Dependencies {
         const val coreLibgdx = "com.badlogicgames.gdx:gdx:${Versions.Libgdx.gdxVersion}"
         const val controllersCore =
             "com.badlogicgames.gdx-controllers:gdx-controllers-core:${Versions.Libgdx.gdxControllersVersion}"
+        const val ashley = "com.badlogicgames.ashley:ashley:${Versions.Libgdx.ashleyVersion}"
 
         fun getAll() =
             CoreDependency::class.memberProperties.filter { it.isConst }.map { it.getter.call().toString() }.toSet()
+    }
+
+    object CoreKtxDependency {
+
+        const val ashley = "io.github.libktx:ktx-ashley:${Versions.Libgdx.ktxVersion}"
+        const val ktxApp = "io.github.libktx:ktx-app:${Versions.Libgdx.ktxVersion}"
+        const val ktxAssets = "io.github.libktx:ktx-assets:${Versions.Libgdx.ktxVersion}"
+        const val ktxGraphics = "io.github.libktx:ktx-graphics:${Versions.Libgdx.ktxVersion}"
+        const val ktxLog = "io.github.libktx:ktx-log:${Versions.Libgdx.ktxVersion}"
+        const val ktxMath = "io.github.libktx:ktx-math:${Versions.Libgdx.ktxVersion}"
+        const val ktxActors = "io.github.libktx:ktx-actors:${Versions.Libgdx.ktxVersion}"
+        const val ktxAi = "io.github.libktx:ktx-ai:${Versions.Libgdx.ktxVersion}"
+
+//        const val ktxAsync = "io.github.libktx:ktx-async:${Versions.Libgdx.ktxVersion}"
+//        const val ktxBox2d = "io.github.libktx:ktx-box2d:${Versions.Libgdx.ktxVersion}"
+//        const val ktxCollections = "io.github.libktx:ktx-collections:${Versions.Libgdx.ktxVersion}"
+//        const val ktxFreetype = "io.github.libktx:ktx-freetype:${Versions.Libgdx.ktxVersion}"
+//        const val ktxFreetypeAsync = "io.github.libktx:ktx-freetype-async:${Versions.Libgdx.ktxVersion}"
+//        const val ktxi18n = "io.github.libktx:ktx-i18n:${Versions.Libgdx.ktxVersion}"
+//        const val ktxInject = "io.github.libktx:ktx-inject:${Versions.Libgdx.ktxVersion}"
+//        const val ktxJson = "io.github.libktx:ktx-json:${Versions.Libgdx.ktxVersion}"
+//        const val ktxPreferences = "io.github.libktx:ktx-preferences:${Versions.Libgdx.ktxVersion}"
+//        const val ktxReflect = "io.github.libktx:ktx-reflect:${Versions.Libgdx.ktxVersion}"
+//        const val ktxScene2d = "io.github.libktx:ktx-scene2d:${Versions.Libgdx.ktxVersion}"
+//        const val ktxScript = "io.github.libktx:ktx-script:${Versions.Libgdx.ktxVersion}"
+//        const val ktxStyle = "io.github.libktx:ktx-style:${Versions.Libgdx.ktxVersion}"
+//        const val ktxTiled = "io.github.libktx:ktx-tiled:${Versions.Libgdx.ktxVersion}"
+//        const val ktxVis = "io.github.libktx:ktx-vis:${Versions.Libgdx.ktxVersion}"
+//        const val ktxVisStyle = "io.github.libktx:ktx-vis-style:${Versions.Libgdx.ktxVersion}"
+        //const val ktxArtemis = "io.github.libktx:ktx-artemis:${Versions.Libgdx.ktxVersion}"
+        //const val ktxAssetsAsync = "io.github.libktx:ktx-assets-async:${Versions.Libgdx.ktxVersion}"
+
+        fun getAll() =
+            CoreKtxDependency::class.memberProperties.filter { it.isConst }.map { it.getter.call().toString() }.toSet()
     }
 
     object GraalDesktop {

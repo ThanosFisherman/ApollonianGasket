@@ -30,13 +30,18 @@ object Versions {
         const val googlePlayServices = "4.3.10"
 
         const val undercouch = "4.1.2"
+        const val grettyVersion = "4.1.1"
     }
 
     object Libgdx {
+        const val ashleyVersion = "1.7.4"
         const val gdxVersion = "1.12.1"
         const val gdxControllersVersion = "2.2.1"
+        const val ktxVersion = "1.12.1-rc1"
+        const val gdxTeaVMVersion = "1.0.0-b4"
         const val graalVersion = "-SNAPSHOT"
     }
+
 
     object Java {
         val sourceCompatibility = JavaVersion.VERSION_17

@@ -1,10 +1,12 @@
 pluginManagement {
     repositories {
         mavenCentral()
-        maven("https://jitpack.io")
-        maven("https://teavm.org/maven/repository/")
         google()
         gradlePluginPortal()
+        maven("https://jitpack.io")
+        maven { url = uri("https://oss.sonatype.org/content/repositories/snapshots/") }
+        maven { url = uri("https://oss.sonatype.org/content/repositories/releases/") }
+        maven { url = uri("https://teavm.org/maven/repository/") }
     }
 }
 
@@ -13,6 +15,10 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven("https://jitpack.io")
+        maven { url = uri("https://oss.sonatype.org/content/repositories/snapshots/") }
+        maven { url = uri("https://oss.sonatype.org/content/repositories/releases/") }
+        maven { url = uri("https://teavm.org/maven/repository/") }
     }
 }
 

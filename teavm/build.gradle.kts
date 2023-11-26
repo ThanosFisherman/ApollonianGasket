@@ -1,28 +1,30 @@
 plugins {
-    java
-    kotlin("jvm")
+    `base-plugin-kotlin`
+    id(Dependencies.Plugins.GRETTY_APPLY) version Versions.Plugins.grettyVersion
 }
 
 group = "io.github.thanosfisherman.game.teavm"
 version = "1.0-SNAPSHOT"
 
+gretty {
+    contextPath = "/"
+    extraResourceBase("build/dist/webapp")
+}
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.9.1"))
-    testImplementation(kotlin("test"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
+    addTeaVMDependencies()
 }
 
-tasks.test {
-    useJUnitPlatform()
+val buildJavaScript = tasks.register<JavaExec>("buildJavaScript") {
+    val mainClassName = "io.github.thanosfisherman.game.teavm.TeaVMBuilder"
+    dependsOn(tasks.classes)
+    description = "Transpile bytecode to JavaScript via TeaVM"
+    mainClass.set(mainClassName)
+    setClasspath(sourceSets.main.get().runtimeClasspath)
 }
 
-kotlin {
-    jvmToolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
-}
-
-java {
-    toolchain { languageVersion = JavaLanguageVersion.of(17) }
+tasks.build.configure { dependsOn(buildJavaScript) }
+val run = tasks.register("run") {
+    description = "Run the JavaScript application hosted via a local Jetty server at http://localhost:8080/"
+    dependsOn(buildJavaScript, ":teavm:jettyRun")
 }
