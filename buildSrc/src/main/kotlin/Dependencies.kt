@@ -59,11 +59,10 @@ object Dependencies {
     object TeaVMDependency {
 
         const val gdxTeaVM = "com.github.xpenatan.gdx-teavm:backend-teavm:${Versions.Libgdx.gdxTeaVMVersion}"
-
-        // FreeType extension
         const val gdxTeaVMFreeType =
             "com.github.xpenatan.gdx-teavm:gdx-freetype-teavm:${Versions.Libgdx.gdxTeaVMVersion}"
-
+        const val box2d = "com.badlogicgames.gdx:gdx-box2d-gwt:${Versions.Libgdx.gdxVersion}"
+        const val bulletTeaVm = "com.github.xpenatan.gdx-teavm:gdx-bullet-teavm:${Versions.Libgdx.gdxTeaVMVersion}"
         fun getAll() =
             TeaVMDependency::class.memberProperties.filter { it.isConst }.map { it.getter.call().toString() }.toSet()
     }
@@ -74,6 +73,8 @@ object Dependencies {
         const val controllers =
             "com.badlogicgames.gdx-controllers:gdx-controllers-android:${Versions.Libgdx.gdxControllersVersion}"
 
+        //const val weSockets = "com.github.MrStahlfelge.gdx-websockets:common:${Versions.Libgdx.websocketVersion}"
+
         fun getAll() =
             AndroidDependency::class.memberProperties.filter { it.isConst }.map { it.getter.call().toString() }.toSet()
     }
@@ -83,6 +84,41 @@ object Dependencies {
         const val armeabiv7a = "com.badlogicgames.gdx:gdx-platform:${Versions.Libgdx.gdxVersion}:natives-armeabi-v7a"
         const val nativesX86 = "com.badlogicgames.gdx:gdx-platform:${Versions.Libgdx.gdxVersion}:natives-x86"
         const val nativesX86_64 = "com.badlogicgames.gdx:gdx-platform:${Versions.Libgdx.gdxVersion}:natives-x86_64"
+
+//        const val box2d_arm64v8a =
+//            "com.badlogicgames.gdx:gdx-box2d-platform:${Versions.Libgdx.gdxVersion}:natives-arm64-v8a"
+//        const val box2d_armeabiv7a =
+//            "com.badlogicgames.gdx:gdx-box2d-platform:${Versions.Libgdx.gdxVersion}:natives-armeabi-v7a"
+//        const val box2d_nativesX86 =
+//            "com.badlogicgames.gdx:gdx-box2d-platform:${Versions.Libgdx.gdxVersion}:natives-x86"
+//        const val box2d_nativesX86_64 =
+//            "com.badlogicgames.gdx:gdx-box2d-platform:${Versions.Libgdx.gdxVersion}:natives-x86_64"
+//        const val bullet_arm64v8a =
+//            "com.badlogicgames.gdx:gdx-bullet-platform:${Versions.Libgdx.gdxVersion}:natives-arm64-v8a"
+//        const val bullet_armeabiv7a =
+//            "com.badlogicgames.gdx:gdx-bullet-platform:${Versions.Libgdx.gdxVersion}:natives-armeabi-v7a"
+//        const val bullet_nativesX86 =
+//            "com.badlogicgames.gdx:gdx-bullet-platform:${Versions.Libgdx.gdxVersion}:natives-x86"
+//        const val bullet_nativesX86_64 =
+//            "com.badlogicgames.gdx:gdx-bullet-platform:${Versions.Libgdx.gdxVersion}:natives-x86_64"
+//        const val freetype_arm64v8a =
+//            "com.badlogicgames.gdx:gdx-freetype-platform:${Versions.Libgdx.gdxVersion}:natives-arm64-v8a"
+//        const val freetype_armeabiv7a =
+//            "com.badlogicgames.gdx:gdx-freetype-platform:${Versions.Libgdx.gdxVersion}:natives-armeabi-v7a"
+//        const val freetype_nativesX86 =
+//            "com.badlogicgames.gdx:gdx-freetype-platform:${Versions.Libgdx.gdxVersion}:natives-x86"
+//        const val freetype_nativesX86_64 =
+//            "com.badlogicgames.gdx:gdx-freetype-platform:${Versions.Libgdx.gdxVersion}:natives-x86_64"
+//
+//        const val miniaudio_arm64v8a =
+//            "games.rednblack.miniaudio:miniaudio:${Versions.Libgdx.miniaudioVersion}:natives-arm64-v8a"
+//        const val miniaudio_armeabiv7a =
+//            "games.rednblack.miniaudio:miniaudio:${Versions.Libgdx.miniaudioVersion}:natives-armeabi-v7a"
+//        const val miniaudio_nativesX86 =
+//            "games.rednblack.miniaudio:miniaudio:${Versions.Libgdx.miniaudioVersion}:natives-x86"
+//        const val miniaudio_nativesX86_64 =
+//            "games.rednblack.miniaudio:miniaudio:${Versions.Libgdx.miniaudioVersion}:natives-x86_64"
+
         fun getAll() =
             AndroidNativesDependency::class.memberProperties.filter { it.isConst }.map { it.getter.call().toString() }
                 .toSet()
@@ -95,6 +131,24 @@ object Dependencies {
         const val controllersCore =
             "com.badlogicgames.gdx-controllers:gdx-controllers-core:${Versions.Libgdx.gdxControllersVersion}"
         const val ashley = "com.badlogicgames.ashley:ashley:${Versions.Libgdx.ashleyVersion}"
+        const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+
+//        const val box2dLights = "com.badlogicgames.box2dlights:box2dlights:${Versions.Libgdx.box2dlightsVersion}"
+//        const val gdxAi = "com.badlogicgames.gdx:gdx-ai:${Versions.Libgdx.aiVersion}"
+//        const val box2d = "com.badlogicgames.gdx:gdx-box2d:${Versions.Libgdx.gdxVersion}"
+//        const val bullet = "com.badlogicgames.gdx:gdx-bullet:${Versions.Libgdx.gdxVersion}"
+//        const val gdxFreetype = "com.badlogicgames.gdx:gdx-freetype:${Versions.Libgdx.gdxVersion}"
+//        const val kryo = "com.esotericsoftware:kryo:${Versions.Libgdx.kryoVersion}"
+//        const val webSockets = "com.github.MrStahlfelge.gdx-websockets:core:${Versions.Libgdx.websocketVersion}"
+//        const val kryonet = "com.github.crykn:kryonet:${Versions.Libgdx.kryoVersion}"
+//        const val gdxGltf = "com.github.mgsx-dev.gdx-gltf:gltf:${Versions.Libgdx.gdxGltfVersion}"
+//        const val digital = "com.github.tommyettinger:digital:${Versions.Libgdx.digitalVersion}"
+//        const val funderby = "com.github.tommyettinger:funderby:${Versions.Libgdx.funderbyVersion}"
+//        const val jdkgdxds = "com.github.tommyettinger:jdkgdxds:${Versions.Libgdx.jdkgdxdsVersion}"
+//        const val kryoJdkgdxds = "com.github.tommyettinger:kryo-jdkgdxds:${Versions.Libgdx.kryoJdkgdxdsVersion}"
+//        const val visUi = "com.kotcrab.vis:vis-ui:${Versions.Libgdx.visUiVersion}"
+//        const val miniAudio = "games.rednblack.miniaudio:miniaudio:${Versions.Libgdx.miniaudioVersion}"
+//        const val tweenEngine = "org.mini2Dx:universal-tween-engine:${Versions.Libgdx.universalTweenVersion}"
 
         fun getAll() =
             CoreDependency::class.memberProperties.filter { it.isConst }.map { it.getter.call().toString() }.toSet()
