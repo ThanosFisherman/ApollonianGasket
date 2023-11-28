@@ -10,6 +10,7 @@
         android:theme="@style/Theme.Libgdxbootstrapper">
         <activity
             android:name=".AndroidLauncher"
+            android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout"
             android:exported="true"
             android:label="@string/title_activity_android_launcher"
             android:theme="@style/Theme.Libgdxbootstrapper">
