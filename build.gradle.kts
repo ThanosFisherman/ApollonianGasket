@@ -2,15 +2,18 @@ plugins {
     //id("com.android.application") version Versions.Plugins.agpVersion apply false
     //id("com.android.library") version Versions.Plugins.agpVersion apply false
     //id("org.jetbrains.kotlin.android") version Versions.Plugins.kgpVersion apply false
-    //id("org.jetbrains.kotlin.jvm") version Versions.Plugins.kgpVersion
-    base
+    //id("org.jetbrains.kotlin.jvm") version "1.9.21" apply false
+
 }
 
-allprojects {
-    group = "io.github.thanosfisherman.game"
-    version = "1.0-SNAPSHOT"
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath(Dependencies.Plugins.ANDROID_GRADLE_PLUGIN)
+        classpath(Dependencies.Plugins.KOTLIN_GRADLE_PLUGIN)
+    }
 }
 
-tasks.getByName<Delete>("clean") {
-    delete(rootProject.layout.buildDirectory)
-}

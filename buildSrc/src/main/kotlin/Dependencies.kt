@@ -13,7 +13,7 @@ object Dependencies {
 
         const val KOTLIN_ALL_OPEN = "org.jetbrains.kotlin:kotlin-allopen:${Versions.kotlin}"
         const val KOTLIN_GRADLE_PLUGIN =
-            "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.Plugins.kgpVersion}"
+            "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
         const val KOTLIN_SERIALIZATION =
             "org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlin}"
 
