@@ -18,7 +18,9 @@ import io.github.thanosfisherman.game.Game.Companion.create
 object TeaVMLauncher {
     @JvmStatic
     fun main(args: Array<String>) {
-        val config = TeaApplicationConfiguration("canvas")
+        val config = TeaApplicationConfiguration("canvas").apply {
+            antialiasing = true
+        }
         // change these to both 0 to use all available space, or both -1 for the canvas size.
         config.width = 0
         config.height = 0

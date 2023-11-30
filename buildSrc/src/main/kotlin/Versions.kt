@@ -29,7 +29,7 @@ object Versions {
         const val googlePlayServices = "4.3.10"
 
         const val undercouch = "4.1.2"
-        const val grettyVersion = "4.1.1"
+        const val grettyVersion = "3.1.2"
     }
 
     object Libgdx {
@@ -38,7 +38,7 @@ object Versions {
         const val gdxControllersVersion = "2.2.1"
         const val gdxControllerUtilsVersion = "2.3.0"
         const val ktxVersion = "1.12.1-rc1"
-        const val gdxTeaVMVersion = "1.0.0-b4"
+        const val gdxTeaVMVersion = "1.0.0-b8"
         const val box2dlightsVersion = "1.5"
         const val aiVersion = "1.8.2"
         const val kryoVersion = "5.5.0"

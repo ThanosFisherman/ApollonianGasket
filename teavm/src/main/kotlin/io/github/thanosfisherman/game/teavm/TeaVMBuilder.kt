@@ -1,9 +1,8 @@
 @file:JvmName("TeaVMBuilder")
 package io.github.thanosfisherman.game.teavm
 
-
-import com.github.xpenatan.gdx.backends.teavm.TeaBuildConfiguration
-import com.github.xpenatan.gdx.backends.teavm.TeaBuilder
+import com.github.xpenatan.gdx.backends.teavm.config.TeaBuildConfiguration
+import com.github.xpenatan.gdx.backends.teavm.config.TeaBuilder
 import java.io.File
 
 /** Builds the TeaVM/HTML application.  */
