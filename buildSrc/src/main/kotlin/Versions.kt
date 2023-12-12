@@ -53,6 +53,7 @@ object Versions {
         const val miniaudioVersion = "0.3"
         const val universalTweenVersion = "6.3.3"
         const val graalVersion = "-SNAPSHOT"
+        const val ode4jVersion = "master-SNAPSHOT"
     }
 
 

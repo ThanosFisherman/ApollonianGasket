@@ -132,8 +132,10 @@ object Dependencies {
             "com.badlogicgames.gdx-controllers:gdx-controllers-core:${Versions.Libgdx.gdxControllersVersion}"
         const val ashley = "com.badlogicgames.ashley:ashley:${Versions.Libgdx.ashleyVersion}"
         const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
-        const val controllerMapping = "de.golfgl.gdxcontrollerutils:gdx-controllerutils-mapping:${Versions.Libgdx.gdxControllerUtilsVersion}"
-        const val controllerScene2D = "de.golfgl.gdxcontrollerutils:gdx-controllerutils-scene2d:${Versions.Libgdx.gdxControllerUtilsVersion}"
+//        const val controllerMapping = "de.golfgl.gdxcontrollerutils:gdx-controllerutils-mapping:${Versions.Libgdx.gdxControllerUtilsVersion}"
+//        const val controllerScene2D = "de.golfgl.gdxcontrollerutils:gdx-controllerutils-scene2d:${Versions.Libgdx.gdxControllerUtilsVersion}"
+        //const val ode4j = "com.github.antzGames:gdx-ode4j:${Versions.Libgdx.ode4jVersion}"
+
 //        const val box2dLights = "com.badlogicgames.box2dlights:box2dlights:${Versions.Libgdx.box2dlightsVersion}"
 //        const val gdxAi = "com.badlogicgames.gdx:gdx-ai:${Versions.Libgdx.aiVersion}"
 //        const val box2d = "com.badlogicgames.gdx:gdx-box2d:${Versions.Libgdx.gdxVersion}"
