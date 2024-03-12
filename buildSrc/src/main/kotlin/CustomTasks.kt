@@ -4,6 +4,7 @@ import org.gradle.api.tasks.Copy
 import org.gradle.api.tasks.Exec
 import org.gradle.jvm.tasks.Jar
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getByName
 import org.gradle.kotlin.dsl.register
 import java.io.File
@@ -12,14 +13,14 @@ import java.util.*
 fun Project.registerDesktopTasks(mainClass: String) {
 
     tasks.getByName<Jar>("jar") {
-        archiveBaseName.set(project.name)
+        archiveFileName.set(project.name)
         val destDir = file(project.layout.buildDirectory.asFile.get().absolutePath + File.separator + "lib")
         destinationDirectory.set(destDir)
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-        dependsOn(configurations.named("runtimeClasspath"))
+        dependsOn(configurations.getByName("runtimeClasspath"))
 
         //from(files(sourceSets.main.get().output.classesDirs))
-        from(configurations.named("runtimeClasspath").get().map { if (it.isDirectory) it else zipTree(it) })
+        from(configurations.get("runtimeClasspath").map { if (it.isDirectory) it else zipTree(it) })
         excludes.apply {
             add("META-INF/INDEX.LIST")
             add("META-INF/*.SF")
