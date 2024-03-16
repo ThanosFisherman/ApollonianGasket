@@ -1,4 +1,4 @@
-import org.gradle.jvm.tasks.Jar
+import java.util.*
 
 plugins {
     `base-plugin-kotlin`
@@ -19,7 +19,11 @@ tasks.test {
 }
 
 application {
-    mainClass.set("io.github.thanosfisherman.game.desktop.DesktopLauncher")
+    val os = System.getProperty("os.name").lowercase(Locale.getDefault())
+    if (os.contains("mac"))
+        applicationDefaultJvmArgs += listOf("-XstartOnFirstThread")
+    val classname = "io.github.thanosfisherman.game.desktop.DesktopLauncher"
+    mainClass.set(classname)
 }
 
 registerDesktopTasks(application.mainClass.get())

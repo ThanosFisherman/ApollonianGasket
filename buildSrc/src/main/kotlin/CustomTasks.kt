@@ -13,27 +13,28 @@ import java.util.*
 fun Project.registerDesktopTasks(mainClass: String) {
 
     tasks.getByName<Jar>("jar") {
-        archiveFileName.set(project.name)
-        val destDir = file(project.layout.buildDirectory.asFile.get().absolutePath + File.separator + "lib")
-        destinationDirectory.set(destDir)
-        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-        dependsOn(configurations.getByName("runtimeClasspath"))
-
-        //from(files(sourceSets.main.get().output.classesDirs))
-        from(configurations.get("runtimeClasspath").map { if (it.isDirectory) it else zipTree(it) })
-        excludes.apply {
-            add("META-INF/INDEX.LIST")
-            add("META-INF/*.SF")
-            add("META-INF/*.DSA")
-            add("META-INF/*.RSA")
-        }
-        dependencies {
-            exclude("META-INF/INDEX.LIST", "META-INF/maven/**")
-        }
-        manifest {
-            attributes["Main-Class"] = mainClass
-        }
         doLast {
+            archiveFileName.set(project.name)
+            val destDir = file(project.layout.buildDirectory.asFile.get().absolutePath + File.separator + "lib")
+            destinationDirectory.set(destDir)
+            duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+            println(configurations)
+            dependsOn(configurations.getByName("runtimeClasspath"))
+
+            //from(files(sourceSets.main.get().output.classesDirs))
+            from(configurations.get("runtimeClasspath").map { if (it.isDirectory) it else zipTree(it) })
+            excludes.apply {
+                add("META-INF/INDEX.LIST")
+                add("META-INF/*.SF")
+                add("META-INF/*.DSA")
+                add("META-INF/*.RSA")
+            }
+            dependencies {
+                exclude("META-INF/INDEX.LIST", "META-INF/maven/**")
+            }
+            manifest {
+                attributes["Main-Class"] = mainClass
+            }
             file(archiveFile).setExecutable(true, false)
         }
     }
