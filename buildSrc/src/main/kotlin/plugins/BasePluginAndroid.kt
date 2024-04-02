@@ -10,11 +10,6 @@ import org.gradle.kotlin.dsl.dependencies
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import kotlin.collections.set
 
-/**
- * Configures the module as an android library.
- * Applies basic android and kotlin plugins and sets up build parameters.
- * Configures sonarqube for this module.
- */
 class BasePluginAndroid : Plugin<Project> {
     override fun apply(project: Project) {
         val pluginManager = project.pluginManager
