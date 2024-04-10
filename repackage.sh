@@ -51,7 +51,7 @@ rename_dir "$desktop_path" "$1"
 rename_dir "$android_path" "$1"
 echo "Package names renamed to $1"
 
-dirs=("android/src" "core/src" "desktop/src" "teavm/src")
+dirs=("android/src" "core/src" "desktop/src" "teavm/src" "buildSrc/src")
 gradle_dirs=("android/build.gradle.kts" "core/build.gradle.kts" "desktop/build.gradle.kts" "teavm/build.gradle.kts")
 
 # Iterate over the elements of the array using a for loop
