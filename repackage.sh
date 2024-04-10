@@ -18,12 +18,12 @@ if [ "$#" -ne 1 ]; then
 fi
 
 # Define the directory path
-core_path="core/src/main/kotlin/io/github/thanosfisherman/game"
-teavm_path="teavm/src/main/kotlin/io/github/thanosfisherman/game"
-desktop_path="desktop/src/main/kotlin/io/github/thanosfisherman/game"
-android_path="android/src/main/java/io/github/thanosfisherman/game"
+core_path="core/src/main/kotlin/io/github/thanosfisherman"
+teavm_path="teavm/src/main/kotlin/io/github/thanosfisherman"
+desktop_path="desktop/src/main/kotlin/io/github/thanosfisherman"
+android_path="android/src/main/java/io/github/thanosfisherman"
 
-rename_dir "$core_path" "$1"
-rename_dir "$teavm_path" "$1"
-rename_dir "$desktop_path" "$1"
-rename_dir "$android_path" "$1"
+rename_dir "$core_path/game" "$core_path/$1"
+rename_dir "$teavm_path/game" "$teavm_path/$1"
+rename_dir "$desktop_path/game" "$desktop_path/$1"
+rename_dir "$android_path/game" "$android_path/$1"
