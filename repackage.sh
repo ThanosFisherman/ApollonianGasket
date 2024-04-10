@@ -8,7 +8,8 @@ rename_dir() {
       echo "Directory renamed successfully to '$2'."
   else
       # If it doesn't, print an error message
-      echo "Directory does not exist"
+      echo "Directory $1 does not exist"
+      exit 1
   fi
 }
 
@@ -48,6 +49,7 @@ rename_dir "$core_path" "$1"
 rename_dir "$teavm_path" "$1"
 rename_dir "$desktop_path" "$1"
 rename_dir "$android_path" "$1"
+echo "Package names renamed to $1"
 
 dirs=("android/src" "core/src" "desktop/src" "teavm/src")
 gradle_dirs=("android/build.gradle.kts" "core/build.gradle.kts" "desktop/build.gradle.kts" "teavm/build.gradle.kts")
@@ -60,5 +62,6 @@ done
 for element in "${dirs[@]}"; do
     search_and_replace_imports "$element" "$1"
 done
+echo "Package imports and occurrences renamed. Congrats!"
 
 
