@@ -11,6 +11,27 @@ rename_dir() {
       echo "Directory 'foo' does not exist in /core."
   fi
 }
+
+# Function to search for the word "game" in a file and replace it with "game2"
+replace_game_with_custom_name() {
+    file="$1"
+    if grep -q "io.github.thanosfisherman.game" "$file"; then
+        sed -i "s/io.github.thanosfisherman.game/io.github.thanosfisherman.$2/g" "$file"
+        echo "$file"
+    fi
+}
+
+# Main function for recursive file search
+search_and_replace_imports() {
+    local directory="$1"
+    # shellcheck disable=SC2155
+    local files=$(find "$directory" -type f)
+
+    for file in $files; do
+        replace_game_with_custom_name "$file" "$2"
+    done
+}
+
 # Check if an argument is provided
 if [ "$#" -ne 1 ]; then
     echo "Usage: $0 new_directory_name"
@@ -27,3 +48,12 @@ rename_dir "$core_path" "$1"
 rename_dir "$teavm_path" "$1"
 rename_dir "$desktop_path" "$1"
 rename_dir "$android_path" "$1"
+
+android_dir="android"
+core_dir="core"
+desktop_dir="desktop"
+teavm_dir="teavm"
+
+search_and_replace_imports "$desktop_dir" "$1"
+
+
