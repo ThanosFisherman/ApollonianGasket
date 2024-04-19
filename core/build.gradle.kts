@@ -6,13 +6,6 @@ tasks.test {
     useJUnitPlatform()
 }
 
-val assetsDir = rootProject.files("assets")
-sourceSets {
-    main {
-        resources.srcDir(assetsDir)
-    }
-}
-
 dependencies {
     addCoreDependencies()
     addCoreKtxDependencies()
