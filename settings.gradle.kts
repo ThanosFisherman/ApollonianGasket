@@ -28,7 +28,7 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.7.0"
 }
 
-rootProject.name = "libgdx-bootstrapper"
+rootProject.buildFileName = "build.gradle.kts"
 include("teavm")
 include("desktop")
 include("core")
