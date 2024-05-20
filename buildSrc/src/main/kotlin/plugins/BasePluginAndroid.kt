@@ -120,5 +120,8 @@ class BasePluginAndroid : Plugin<Project> {
         project.tasks.withType(KotlinCompile::class.java) {
             kotlinOptions.jvmTarget = Versions.Kotlin.jvmTarget
         }
+        // To suppress the error about android not being able to find testClasses.
+        // Might not be needed after all
+        project.task("testClasses")
     }
 }
