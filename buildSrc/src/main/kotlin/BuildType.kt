@@ -5,7 +5,7 @@ interface BuildType {
     companion object {
         const val RELEASE = "release"
         const val DEBUG = "debug"
-        const val APPLICATION_ID = "io.github.thanosfisherman.game"
+        const val APPLICATION_ID = "io.github.thanosfisherman.gasket"
     }
 
     val isMinifyEnabled: Boolean

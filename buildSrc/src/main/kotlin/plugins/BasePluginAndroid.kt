@@ -25,7 +25,7 @@ class BasePluginAndroid : Plugin<Project> {
         }
         project.configurations.create("natives")
         project.extensions.configure<BaseAppModuleExtension>("android") {
-            namespace = "io.github.thanosfisherman.game.android"
+            namespace = "io.github.thanosfisherman.gasket.android"
             compileSdk = Versions.Android.compileSdkVersion
 
             sourceSets {
@@ -59,7 +59,7 @@ class BasePluginAndroid : Plugin<Project> {
             }
 
             defaultConfig {
-                applicationId = "io.github.thanosfisherman.game.android"
+                applicationId = "io.github.thanosfisherman.gasket.android"
                 minSdk = 24
                 targetSdk = 34
                 versionCode = 1

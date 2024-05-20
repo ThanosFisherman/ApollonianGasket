@@ -1,5 +1,5 @@
 @file:JvmName("TeaVMBuilder")
-package io.github.thanosfisherman.game.teavm
+package io.github.thanosfisherman.gasket.teavm
 
 import com.github.xpenatan.gdx.backends.teavm.config.TeaBuildConfiguration
 import com.github.xpenatan.gdx.backends.teavm.config.TeaBuilder
@@ -12,10 +12,10 @@ fun main() {
     teaBuildConfiguration.webappPath = File("build/dist").getCanonicalPath()
 
     // Register any extra classpath assets here:
-    // teaBuildConfiguration.additionalAssetsClasspathFiles.add("io/github/thanosfisherman/game/asset.extension");
+    // teaBuildConfiguration.additionalAssetsClasspathFiles.add("io.github.thanosfisherman.gasket/asset.extension");
 
     // Register any classes or packages that require reflection here:
-    // TeaReflectionSupplier.addReflectionClass("io.github.thanosfisherman.game.reflect");
+    // TeaReflectionSupplier.addReflectionClass("io.github.thanosfisherman.gasket.reflect");
     val tool = TeaBuilder.config(teaBuildConfiguration)
     tool.mainClass = TeaVMLauncher::class.java.getName()
     TeaBuilder.build(tool)

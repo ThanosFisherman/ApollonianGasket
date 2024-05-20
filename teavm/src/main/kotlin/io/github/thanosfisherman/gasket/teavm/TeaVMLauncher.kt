@@ -1,10 +1,10 @@
 @file:JvmName("TeaVMLauncher")
 
-package io.github.thanosfisherman.game.teavm
+package io.github.thanosfisherman.gasket.teavm
 
 import com.github.xpenatan.gdx.backends.teavm.TeaApplication
 import com.github.xpenatan.gdx.backends.teavm.TeaApplicationConfiguration
-import io.github.thanosfisherman.game.Game.Companion.create
+import io.github.thanosfisherman.gasket.Game.Companion.create
 
 
 /**

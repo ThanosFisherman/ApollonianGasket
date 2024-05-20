@@ -1,4 +1,4 @@
-package io.github.thanosfisherman.game
+package io.github.thanosfisherman.gasket
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Texture

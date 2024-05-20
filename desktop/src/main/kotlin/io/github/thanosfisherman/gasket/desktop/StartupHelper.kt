@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 //Note, the above license and copyright applies to this file only.
-package io.github.thanosfisherman.game.desktop
+package io.github.thanosfisherman.gasket.desktop
 
 import org.lwjgl.system.macosx.LibC
 import java.io.BufferedReader

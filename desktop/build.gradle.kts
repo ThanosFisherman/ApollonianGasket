@@ -5,7 +5,7 @@ plugins {
     application
 }
 
-group = "io.github.thanosfisherman.game.desktop"
+group = "io.github.thanosfisherman.gasket.desktop"
 version = "1.0-SNAPSHOT"
 
 dependencies {
@@ -22,7 +22,7 @@ application {
     val os = System.getProperty("os.name").lowercase(Locale.getDefault())
     if (os.contains("mac"))
         applicationDefaultJvmArgs += listOf("-XstartOnFirstThread")
-    val classname = "io.github.thanosfisherman.game.desktop.DesktopLauncher"
+    val classname = "io.github.thanosfisherman.gasket.desktop.DesktopLauncher"
     mainClass.set(classname)
 }
 
