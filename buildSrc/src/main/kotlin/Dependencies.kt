@@ -51,6 +51,7 @@ object Dependencies {
         const val nativesDesktop = "com.badlogicgames.gdx:gdx-platform:${Versions.Libgdx.gdxVersion}:natives-desktop"
         const val controllers =
             "com.badlogicgames.gdx-controllers:gdx-controllers-desktop:${Versions.Libgdx.gdxControllersVersion}"
+        //const val miniAudio = "games.rednblack.miniaudio:miniaudio:${Versions.Libgdx.miniaudioVersion}:natives-desktop"
 
         fun getAll() =
             DesktopDependency::class.memberProperties.filter { it.isConst }.map { it.getter.call().toString() }.toSet()
