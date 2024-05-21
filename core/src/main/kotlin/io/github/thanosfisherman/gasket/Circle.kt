@@ -6,7 +6,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Vector2
 
-class Circle(var x: Float, var y: Float, val bend: Float, private val camera: OrthographicCamera) {
+class Circle(var x: Float, var y: Float, val bend: Float, private val camera: OrthographicCamera = OrthographicCamera()) {
+
+    init {
+        camera.setToOrtho(false, 800f, 800f)
+    }
 
     private val shape = ShapeRenderer()
     val center = Complex(x, y)
