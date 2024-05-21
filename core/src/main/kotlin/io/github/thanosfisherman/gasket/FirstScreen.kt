@@ -30,7 +30,11 @@ class FirstScreen : KtxScreen {
         c1.draw()
         c2.draw()
         c3.draw()
-        c4.draw(vector.x,vector.y, Color.CYAN)
+        //c4.draw(vector.x,vector.y, Color.CYAN)
+        circlesNew[0].draw(color = Color.CYAN)
+//        circlesNew[1].draw()
+//        circlesNew[2].draw()
+        circlesNew[3].draw(color = Color.CYAN)
         if (Gdx.input.isKeyPressed(Keys.ESCAPE))
             Gdx.app.exit()
 

@@ -16,7 +16,7 @@ class Circle(var x: Float, var y: Float, val bend: Float, private val camera: Or
     val center = Complex(x, y)
     val radius = kotlin.math.abs(1 / bend)
 
-    fun draw(x: Float = this.x, y: Float = this.y, color: Color = Color.RED) {
+    fun draw(x: Float = this.center.real.toFloat(), y: Float = this.center.img.toFloat(), color: Color = Color.RED) {
         Gdx.gl.glLineWidth(2f);
         shape.projectionMatrix = camera.combined
         shape.begin(ShapeRenderer.ShapeType.Line)

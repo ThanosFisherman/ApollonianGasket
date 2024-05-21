@@ -32,16 +32,15 @@ object Descartes {
 
         var root = zk1 * zk2 + zk2 * zk3 + zk1 * zk3
         root = sqrt(root) * 2
-        val center1 = sum + root * (1 / k4[0]);
-        val center2 = sum + root * (1 / k4[0]);
-        val center3 = sum + root * (1 / k4[1]);
-        val center4 = sum + root * (1 / k4[1]);
-
+        val center1 = (sum + root) * (1 / k4[0]);
+        val center2 = (sum - root) * (1 / k4[0]);
+        val center3 = (sum + root) * (1 / k4[1]);
+        val center4 = (sum - root) * (1 / k4[1]);
         return arrayOf(
-            Circle(k4[0], center1.real.toFloat(), center1.img.toFloat()),
-            Circle(k4[0], center2.real.toFloat(), center2.img.toFloat()),
-            Circle(k4[1], center3.real.toFloat(), center3.img.toFloat()),
-            Circle(k4[1], center4.real.toFloat(), center4.img.toFloat()),
+            Circle(center1.real.toFloat(), center1.img.toFloat(), k4[0]),
+            Circle(center2.real.toFloat(), center2.img.toFloat(), k4[0]),
+            Circle(center3.real.toFloat(), center3.img.toFloat(), k4[1]),
+            Circle(center4.real.toFloat(), center4.img.toFloat(), k4[1]),
         )
     }
 }
