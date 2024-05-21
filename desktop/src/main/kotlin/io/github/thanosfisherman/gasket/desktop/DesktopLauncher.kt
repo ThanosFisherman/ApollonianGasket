@@ -16,7 +16,7 @@ fun main() {
             val displayMode = Lwjgl3ApplicationConfiguration.getDisplayMode()
             val width = displayMode.width * 0.75f
             val height = width / 16f * 9f
-            setWindowedMode(width.toInt(), height.toInt())
+            setWindowedMode(800, 800)
             setWindowIcon(*(arrayOf(128, 64, 32, 16).map { "libgdx$it.png" }.toTypedArray()))
             setTitle("Game")
             useVsync(true)
