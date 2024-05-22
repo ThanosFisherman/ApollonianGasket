@@ -2,8 +2,8 @@ package io.github.thanosfisherman.gasket
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input.Keys
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.OrthographicCamera
+import ktx.app.KtxInputAdapter
 import ktx.app.KtxScreen
 import ktx.app.clearScreen
 import ktx.log.logger
@@ -18,7 +18,13 @@ class FirstScreen : KtxScreen {
     private val automaton = Automaton()
 
     override fun show() {
-
+        Gdx.input.inputProcessor = object : KtxInputAdapter {
+            override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
+                logger.debug { "IS TOUCHED" }
+                automaton.mouseClick()
+                return true
+            }
+        }
     }
 
     override fun render(delta: Float) {
@@ -27,10 +33,10 @@ class FirstScreen : KtxScreen {
         camera.unproject(vector)
         Gdx.graphics.setTitle("DEBUG - X: ${vector.x} Y: ${vector.y}")
 
-        automaton.draw()
         if (Gdx.input.isKeyPressed(Keys.ESCAPE))
             Gdx.app.exit()
 
+        automaton.draw()
     }
 
     override fun dispose() {
