@@ -10,8 +10,8 @@ object Descartes {
         // Sum and product of curvatures for Descartes' theorem
         val sum = k1 + k2 + k3;
         val product = kotlin.math.abs(k1 * k2 + k2 * k3 + k1 * k3);
-        val root: Double = 2 * kotlin.math.sqrt(product.toDouble());
-        return floatArrayOf(sum - root.toFloat(), sum - root.toFloat())
+        val root = 2 * kotlin.math.sqrt(product);
+        return floatArrayOf(sum + root, sum - root)
     }
 
     // Complex calculations based on Descartes' theorem for circle generation
@@ -37,10 +37,10 @@ object Descartes {
         val center3 = (sum + root) * (1 / k4[1]);
         val center4 = (sum - root) * (1 / k4[1]);
         return arrayOf(
-            Circle(center1.real.toFloat(), center1.img.toFloat(), k4[0]),
-            Circle(center2.real.toFloat(), center2.img.toFloat(), k4[0]),
-            Circle(center3.real.toFloat(), center3.img.toFloat(), k4[1]),
-            Circle(center4.real.toFloat(), center4.img.toFloat(), k4[1]),
+            Circle(center1.real, center1.img, k4[0]),
+            Circle(center2.real, center2.img, k4[0]),
+            Circle(center3.real, center3.img, k4[1]),
+            Circle(center4.real, center4.img, k4[1]),
         )
     }
 }

@@ -21,7 +21,7 @@ fun sqrt(c: Complex): Complex {
 /**
  * Complex norm
  */
-fun abs(c: Complex): Double = c.abs()
+fun abs(c: Complex): Float = c.abs()
 
 /**
  * Complex exponential
@@ -87,11 +87,11 @@ fun ln(c: Complex) = Complex(ln(c.abs()), c.phase())
 fun roots(n: Int) =
     (1..n).map { exp(i * 2 * PI * it / n) }
 
-operator fun Number.plus(c: Complex) = Complex(this.toDouble() + c.real, c.img)
+operator fun Number.plus(c: Complex) = Complex(this.toFloat() + c.real, c.img)
 
-operator fun Number.minus(c: Complex) = Complex(this.toDouble() - c.real, -c.img)
+operator fun Number.minus(c: Complex) = Complex(this.toFloat() - c.real, -c.img)
 
-operator fun Number.times(c: Complex) = Complex(this.toDouble() * c.real, this.toDouble() * c.img)
+operator fun Number.times(c: Complex) = Complex(this.toFloat() * c.real, this.toFloat() * c.img)
 
 operator fun Number.div(c: Complex) = Complex.ONE / c
 
@@ -100,9 +100,9 @@ operator fun Number.div(c: Complex) = Complex.ONE / c
  * @param real the real component
  * @param img the imaginary component
  */
-class Complex(val real: Double, val img: Double) {
+class Complex(val real: Float, val img: Float) {
 
-    constructor(real: Number, img: Number) : this(real.toDouble(), img.toDouble())
+    constructor(real: Number, img: Number) : this(real.toFloat(), img.toFloat())
 
     override fun equals(other: Any?): Boolean {
         return (other is Complex && real == other.real && img == other.img)
@@ -116,17 +116,17 @@ class Complex(val real: Double, val img: Double) {
 
     operator fun plus(c: Complex) = Complex(real + c.real, img + c.img)
 
-    operator fun plus(n: Number) = Complex(real + n.toDouble(), img)
+    operator fun plus(n: Number) = Complex(real + n.toFloat(), img)
 
     operator fun minus(c: Complex) = Complex(real - c.real, img - c.img)
 
-    operator fun minus(n: Number) = Complex(real - n.toDouble(), img)
+    operator fun minus(n: Number) = Complex(real - n.toFloat(), img)
 
     operator fun times(c: Complex) = Complex(real * c.real - img * c.img, real * c.img + img * c.real)
 
-    operator fun times(n: Number) = Complex(n.toDouble() * real, n.toDouble() * img)
+    operator fun times(n: Number) = Complex(n.toFloat() * real, n.toFloat() * img)
 
-    operator fun div(n: Number) = Complex(real / n.toDouble(), img / n.toDouble())
+    operator fun div(n: Number) = Complex(real / n.toFloat(), img / n.toFloat())
 
     operator fun div(c: Complex): Complex {
         val den = c.normSquared()
@@ -147,11 +147,11 @@ class Complex(val real: Double, val img: Double) {
 
     fun normSquared() = real * real + img * img
 
-    fun abs(): Double = sqrt(this.normSquared())
+    fun abs(): Float = sqrt(this.normSquared())
 
-    fun phase(): Double = atan(img / real)
+    fun phase(): Float = atan(img / real)
 
-    fun pow(a: Double) = exp(ln(this) * a)
+    fun pow(a: Float) = exp(ln(this) * a)
 
     fun pow(a: Number) = exp(ln(this) * a)
 
@@ -166,7 +166,7 @@ class Complex(val real: Double, val img: Double) {
         }
     }
 
-    private fun isPracticallyZero(d: Double) = abs(d) < DEFAULT_TOLERANCE
+    private fun isPracticallyZero(d: Float) = abs(d) < DEFAULT_TOLERANCE
 
     companion object {
         /**
@@ -181,15 +181,15 @@ class Complex(val real: Double, val img: Double) {
 
         const val DEFAULT_TOLERANCE = 1.0E-15
 
-        fun fromNumber(n: Number) = Complex(n.toDouble(), 0.0)
+        fun fromNumber(n: Number) = Complex(n.toFloat(), 0.0)
 
-        fun fromPolar(radius: Double, theta: Double): Complex = radius * exp(i * theta)
+        fun fromPolar(radius: Float, theta: Float): Complex = radius * exp(i * theta)
     }
 
     /**
      * Tests if the norm of the complex number is smaller than the given tolerance
      */
-    fun isZero(tolerance: Double) = this.abs() < tolerance
+    fun isZero(tolerance: Float) = this.abs() < tolerance
 
     infix fun to(exponent: Int): Complex {
         if (exponent == 0) {
