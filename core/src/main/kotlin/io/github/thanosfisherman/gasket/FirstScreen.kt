@@ -20,7 +20,6 @@ class FirstScreen : KtxScreen {
     override fun show() {
         Gdx.input.inputProcessor = object : KtxInputAdapter {
             override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
-                logger.debug { "IS TOUCHED" }
                 automaton.mouseClick()
                 return true
             }

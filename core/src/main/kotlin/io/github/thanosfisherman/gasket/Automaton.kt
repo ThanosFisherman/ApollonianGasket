@@ -30,7 +30,6 @@ class Automaton {
         for (triplet in queue) {
             val (c1, c2, c3) = triplet
             val k4 = Descartes.simple(c1, c2, c3)
-            val r4 = abs(1 / k4[1])
             val newCircles = Descartes.complex(c1, c2, c3, k4)
             for (newCircle in newCircles) {
 
@@ -120,7 +119,7 @@ class Automaton {
     // Check if the potential new circle is valid
     private fun validate(c4: Circle, c1: Circle, c2: Circle, c3: Circle): Boolean {
         // Discards too small circles to avoid infinite recursion
-        if (c4.radius < 2) return false;
+        if (c4.radius < 1.5) return false;
 
         for (other in allCircles) {
             val d = c4.distance(other)
