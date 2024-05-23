@@ -14,7 +14,7 @@ class Automaton {
         add(c2)
         add(c3)
     }
-    private val queue = mutableListOf<Triplet>().apply {
+    private var queue = mutableListOf<Triplet>().apply {
         add(Triplet(c1, c2, c3))
     }
 
@@ -33,13 +33,16 @@ class Automaton {
             val r4 = abs(1 / k4[1])
             val newCircles = Descartes.complex(c1, c2, c3, k4)
             for (newCircle in newCircles) {
-                allCircles.add(newCircle)
-                val t1 = Triplet(c1, c2, newCircle)
-                val t2 = Triplet(c1, c3, newCircle)
-                val t3 = Triplet(c2, c3, newCircle)
-                nextQueue.add(t1)
-                nextQueue.add(t2)
-                nextQueue.add(t3)
+
+                if (validate(newCircle, c1, c2, c3)) {
+                    allCircles.add(newCircle)
+                    val t1 = Triplet(c1, c2, newCircle)
+                    val t2 = Triplet(c1, c3, newCircle)
+                    val t3 = Triplet(c2, c3, newCircle)
+                    nextQueue.add(t1)
+                    nextQueue.add(t2)
+                    nextQueue.add(t3)
+                }
             }
         }
         queue.clear()
@@ -109,8 +112,8 @@ class Automaton {
         val r1 = c1.radius;
         val r2 = c2.radius;
         // Tangency check based on distances and radii
-        val a = abs(d - (r1 + r2)) < 0.1;
-        val b = abs(d - abs(r2 - r1)) < 0.1;
+        val a = abs(d - (r1 + r2)) < epsilon
+        val b = abs(d - abs(r2 - r1)) < epsilon
         return a or b;
     }
 
@@ -119,6 +122,13 @@ class Automaton {
         // Discards too small circles to avoid infinite recursion
         if (c4.radius < 2) return false;
 
+        for (other in allCircles) {
+            val d = c4.distance(other)
+            val radiusDiff = abs(c4.radius - other.radius)
+            if (d < epsilon && radiusDiff < epsilon) {
+                return false
+            }
+        }
         // Check if all 4 circles are mutually tangential
         if (!isTangent(c4, c1)) return false;
         if (!isTangent(c4, c2)) return false;
