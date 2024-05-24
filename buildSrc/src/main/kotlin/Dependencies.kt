@@ -171,7 +171,7 @@ object Dependencies {
 
 //        const val ktxAsync = "io.github.libktx:ktx-async:${Versions.Libgdx.ktxVersion}"
 //        const val ktxBox2d = "io.github.libktx:ktx-box2d:${Versions.Libgdx.ktxVersion}"
-//        const val ktxCollections = "io.github.libktx:ktx-collections:${Versions.Libgdx.ktxVersion}"
+        const val ktxCollections = "io.github.libktx:ktx-collections:${Versions.Libgdx.ktxVersion}"
 //        const val ktxFreetype = "io.github.libktx:ktx-freetype:${Versions.Libgdx.ktxVersion}"
 //        const val ktxFreetypeAsync = "io.github.libktx:ktx-freetype-async:${Versions.Libgdx.ktxVersion}"
 //        const val ktxi18n = "io.github.libktx:ktx-i18n:${Versions.Libgdx.ktxVersion}"
