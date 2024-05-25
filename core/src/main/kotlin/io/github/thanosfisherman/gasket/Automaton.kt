@@ -1,14 +1,17 @@
 package io.github.thanosfisherman.gasket
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import kotlin.math.abs
 
 private const val epsilon = 0.1f
+private val width = Gdx.graphics.width.toFloat()
+private val height = Gdx.graphics.height.toFloat()
 
 class Automaton {
-    private var c1 = Circle(400f, 400f, -1 / 200f)
-    private val c2 = Circle(300f, 400f, 1 / 100f)
-    private val c3 = Circle(500f, 400f, 1 / 100f)
+    private var c1 = Circle(width / 2, height / 2, -1 / (width / 2))
+    private val c2 = Circle(width / 4, height / 2, 1 / (width / 4))
+    private val c3 = Circle((2 * width) / 4 + width / 4, height / 2, 1 / (width / 4))
     private val allCircles = mutableListOf<Circle>().apply {
         add(c1)
         add(c2)
