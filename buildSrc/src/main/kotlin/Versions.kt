@@ -1,12 +1,11 @@
 import org.gradle.api.JavaVersion
-import org.gradle.api.Project
 import org.gradle.jvm.toolchain.JavaLanguageVersion
 
 object Versions {
 
     // region Common
 
-    const val kotlin = "1.9.23"
+    const val kotlin = "2.0.0"
     const val coroutines = "1.8.0"
     const val kotlinxDateTime = "0.3.0"
     const val kotlinSerialization = "1.6.3"
@@ -58,12 +57,12 @@ object Versions {
 
 
     object Java {
-        val sourceCompatibility = JavaVersion.VERSION_17
-        val targetCompatibility = JavaVersion.VERSION_17
-        val javaToolchainVersion = JavaLanguageVersion.of(17)
+        val sourceCompatibility = JavaVersion.VERSION_21
+        val targetCompatibility = JavaVersion.VERSION_21
+        val javaToolchainVersion = JavaLanguageVersion.of(21)
     }
 
     object Kotlin {
-        const val jvmTarget = "17"
+        const val jvmTarget = "21"
     }
 }

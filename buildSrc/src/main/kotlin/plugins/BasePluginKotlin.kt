@@ -8,6 +8,8 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.named
+import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import java.io.File
 
@@ -37,9 +39,18 @@ class BasePluginKotlin : Plugin<Project> {
                 resources.srcDirs(assetsDir)
             }
         }
-//        project.tasks.withType(KotlinCompile::class.java) {
-//            kotlinOptions.jvmTarget = Versions.Kotlin.jvmTarget
+//        project.tasks.named("compileKotlin", org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask::class.java) {
+//            compilerOptions {
+//                freeCompilerArgs.add("-Xexport-kdoc")
+//            }
 //        }
+
+        project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile>().configureEach {
+            compilerOptions {
+                languageVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_0)
+                jvmTarget.set(JvmTarget.fromTarget(Versions.Kotlin.jvmTarget))
+            }
+        }
     }
 }
 

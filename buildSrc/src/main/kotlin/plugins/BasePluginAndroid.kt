@@ -7,7 +7,8 @@ import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import kotlin.collections.set
 
 class BasePluginAndroid : Plugin<Project> {
@@ -117,8 +118,17 @@ class BasePluginAndroid : Plugin<Project> {
             }
         }
 
-        project.tasks.withType(KotlinCompile::class.java) {
-            kotlinOptions.jvmTarget = Versions.Kotlin.jvmTarget
+//        project.tasks.named("compileKotlin", org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask::class.java) {
+//            compilerOptions {
+//                freeCompilerArgs.add("-Xexport-kdoc")
+//            }
+//        }
+
+        project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile>().configureEach {
+            compilerOptions {
+                languageVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_0)
+                jvmTarget.set(JvmTarget.fromTarget(Versions.Kotlin.jvmTarget))
+            }
         }
     }
 }
