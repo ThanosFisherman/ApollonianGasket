@@ -15,12 +15,12 @@ class FirstScreen : KtxScreen {
 
     private val camera = OrthographicCamera().apply { setToOrtho(false, 800f, 800f) }
     private val vector = vec3(Gdx.input.x.toFloat(), Gdx.input.y.toFloat())
-    private val automaton = Automaton()
+    private var automaton = Automaton()
 
     override fun show() {
         Gdx.input.inputProcessor = object : KtxInputAdapter {
             override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
-                automaton.mouseClick()
+                automaton = Automaton()
                 return true
             }
         }

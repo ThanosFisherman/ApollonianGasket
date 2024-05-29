@@ -2,42 +2,76 @@ package io.github.thanosfisherman.gasket
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.math.MathUtils
+import com.badlogic.gdx.math.MathUtils.PI
+import com.badlogic.gdx.math.RandomXS128
+import com.badlogic.gdx.math.Vector2
+import ktx.math.vec2
 import kotlin.math.abs
 
-private const val epsilon = 0.1f
+// Tolerance for calculating tangency and overlap
+private const val epsilon = 0.6f
 private val width = Gdx.graphics.width.toFloat()
 private val height = Gdx.graphics.height.toFloat()
 
 class Automaton {
+    // Initialize first circle centered on canvas
     private var c1 = Circle(width / 2, height / 2, -1 / (width / 2))
-    private val c2 = Circle(width / 4, height / 2, 1 / (width / 4))
-    private val c3 = Circle((2 * width) / 4 + width / 4, height / 2, 1 / (width / 4))
+
+    private val r2 = randomFloatRange(100f, c1.radius / 2)
+
+    // Generate a random angle between 0 and 2*PI
+    private val randomAngleRad: Float = randomFloatRange(0f, 2 * PI)
+
+    // Convert the angle to a unit vector
+    private val v = vec2(MathUtils.cos(randomAngleRad), MathUtils.sin(randomAngleRad))
+        .setLength(c1.radius - r2)
+
+    // Second circle positioned randomly within the first
+    private val c2 = Circle(width / 2 + v.x, height / 2 + v.y, 1 / r2)
+
+    private val r3 = v.len()
+    private val v2 = Vector2(v).rotateRad(PI).setLength(c1.radius - r3)
+
+    // Third circle also positioned relative to the first
+    private val c3 = Circle(width / 2 + v2.x, height / 2 + v2.y, 1 / r3, Color.FOREST)
+
+    // All circles in the gasket
     private val allCircles = mutableListOf<Circle>().apply {
         add(c1)
         add(c2)
         add(c3)
     }
+
+    // Queue for circles to process for next generation
     private var queue = mutableListOf<Triplet>().apply {
+        // Initial triplet for generating next generation of circles
         add(Triplet(c1, c2, c3))
     }
 
+
     fun draw() {
+
+        nextGeneration()
 
         for (c in allCircles) {
             c.draw()
         }
     }
 
-    fun mouseClick() {
+    fun nextGeneration() {
         val nextQueue = mutableListOf<Triplet>()
         for (triplet in queue) {
             val (c1, c2, c3) = triplet
+            // Calculate curvature for the next circle
             val k4 = Descartes.simple(c1, c2, c3)
+            // Generate new circles based on Complex Descartes' theorem
             val newCircles = Descartes.complex(c1, c2, c3, k4)
             for (newCircle in newCircles) {
 
                 if (validate(newCircle, c1, c2, c3)) {
                     allCircles.add(newCircle)
+                    // New triplets formed with the new circle for the next generation
                     val t1 = Triplet(c1, c2, newCircle)
                     val t2 = Triplet(c1, c3, newCircle)
                     val t3 = Triplet(c2, c3, newCircle)
@@ -49,63 +83,6 @@ class Automaton {
         }
         queue.clear()
         queue.addAll(nextQueue)
-    }
-
-    fun nextGeneration() {
-
-        c1.draw()
-        c2.draw()
-        c3.draw()
-
-        val bends1 = Descartes.simple(c1, c2, c3)
-        val circlesNew = Descartes.complex(c1, c2, c3, bends1)
-        circlesNew[0].draw(color = Color.MAGENTA)
-        circlesNew[1].draw(color = Color.MAGENTA)
-        circlesNew[2].draw(color = Color.MAGENTA)
-        circlesNew[3].draw(color = Color.MAGENTA)
-
-        val bends2 = Descartes.simple(c1, c2, circlesNew[0])
-        val circlesNew2 = Descartes.complex(c1, c2, circlesNew[0], bends2)
-        circlesNew2[0].draw(color = Color.BLUE)
-        circlesNew2[1].draw(color = Color.BLUE)
-        circlesNew2[2].draw(color = Color.BLUE)
-        circlesNew2[3].draw(color = Color.BLUE)
-
-        val bends3 = Descartes.simple(c1, circlesNew[0], circlesNew2[0])
-        val circlesNew3 = Descartes.complex(c1, circlesNew[0], circlesNew2[0], bends3)
-        circlesNew3[0].draw(color = Color.CYAN)
-        circlesNew3[1].draw(color = Color.CYAN)
-        circlesNew3[2].draw(color = Color.CYAN)
-        circlesNew3[3].draw(color = Color.CYAN)
-
-        val bends4 = Descartes.simple(circlesNew[0], circlesNew2[0], circlesNew3[0])
-        val circlesNew4 = Descartes.complex(circlesNew[0], circlesNew2[0], circlesNew3[0], bends4)
-        circlesNew4[0].draw(color = Color.PURPLE)
-        circlesNew4[1].draw(color = Color.PURPLE)
-        circlesNew4[2].draw(color = Color.PURPLE)
-        circlesNew4[3].draw(color = Color.PURPLE)
-
-        val bends5 = Descartes.simple(circlesNew2[0], circlesNew3[0], circlesNew4[0])
-        val circlesNew5 = Descartes.complex(circlesNew2[0], circlesNew3[0], circlesNew4[0], bends5)
-        circlesNew5[0].draw(color = Color.FOREST)
-        circlesNew5[1].draw(color = Color.FOREST)
-        circlesNew5[2].draw(color = Color.FOREST)
-        circlesNew5[3].draw(color = Color.FOREST)
-
-        val bends6 = Descartes.simple(circlesNew3[0], circlesNew4[0], circlesNew5[0])
-        val circlesNew6 = Descartes.complex(circlesNew3[0], circlesNew4[0], circlesNew5[0], bends6)
-        circlesNew6[0].draw(color = Color.YELLOW)
-        circlesNew6[1].draw(color = Color.YELLOW)
-        circlesNew6[2].draw(color = Color.YELLOW)
-        circlesNew6[3].draw(color = Color.YELLOW)
-
-        val bends7 = Descartes.simple(circlesNew4[0], circlesNew5[0], circlesNew6[0])
-        val circlesNew7 = Descartes.complex(circlesNew3[0], circlesNew4[0], circlesNew5[0], bends7)
-        circlesNew7[0].draw(color = Color.GRAY)
-        circlesNew7[1].draw(color = Color.GRAY)
-        circlesNew7[2].draw(color = Color.GRAY)
-        circlesNew7[3].draw(color = Color.GRAY)
-
     }
 
     // Determine if two circles are tangent to each other
@@ -122,11 +99,12 @@ class Automaton {
     // Check if the potential new circle is valid
     private fun validate(c4: Circle, c1: Circle, c2: Circle, c3: Circle): Boolean {
         // Discards too small circles to avoid infinite recursion
-        if (c4.radius < 1.5) return false;
+        if (c4.radius < 2) return false;
 
         for (other in allCircles) {
             val d = c4.distance(other)
             val radiusDiff = abs(c4.radius - other.radius)
+            // Ensures new circle doesn't overlap or is too close to existing circles
             if (d < epsilon && radiusDiff < epsilon) {
                 return false
             }
@@ -137,6 +115,13 @@ class Automaton {
         if (!isTangent(c4, c3)) return false;
 
         return true;
+    }
+
+    private fun randomFloatRange(min: Float, max: Float): Float {
+        require(min < max) { "max must be greater than min" }
+        val ran = RandomXS128()
+        val result = min + ran.nextFloat() * (max - min)
+        return result
     }
 }
 
