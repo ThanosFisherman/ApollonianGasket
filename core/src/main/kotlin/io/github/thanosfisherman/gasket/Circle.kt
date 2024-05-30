@@ -16,7 +16,7 @@ data class Circle(var x: Float, var y: Float, val bend: Float, private val color
     val center = Complex(x, y)
     val radius = kotlin.math.abs(1 / bend)
 
-    fun draw(x: Float = this.center.real.toFloat(), y: Float = this.center.img.toFloat(), color: Color = this.color) {
+    fun draw(x: Float = this.center.real, y: Float = this.center.img, color: Color = this.color) {
         Gdx.gl.glLineWidth(2f);
         shape.projectionMatrix = camera.combined
         shape.begin(ShapeRenderer.ShapeType.Line)
@@ -26,6 +26,6 @@ data class Circle(var x: Float, var y: Float, val bend: Float, private val color
     }
 
     fun distance(other: Circle): Float {
-        return Vector2.dst(x.toFloat(), y.toFloat(), other.x.toFloat(), other.y.toFloat())
+        return Vector2.dst(x, y, other.x, other.y)
     }
 }
