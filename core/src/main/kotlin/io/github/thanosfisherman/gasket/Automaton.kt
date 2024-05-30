@@ -34,7 +34,7 @@ class Automaton {
     private val v2 = Vector2(v).rotateRad(PI).setLength(c1.radius - r3)
 
     // Third circle also positioned relative to the first
-    private val c3 = Circle(width / 2 + v2.x, height / 2 + v2.y, 1 / r3, Color.FOREST)
+    private val c3 = Circle(width / 2 + v2.x, height / 2 + v2.y, 1 / r3)
 
     // All circles in the gasket
     private val allCircles = mutableListOf<Circle>().apply {
