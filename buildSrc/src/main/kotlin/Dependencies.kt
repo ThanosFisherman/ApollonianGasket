@@ -193,16 +193,15 @@ object Dependencies {
     }
 
     object GraalDesktop {
-        const val lwjgl3Backend = "com.github.Berstanio.gdx-graalhelper:gdx-svmhelper-backend-lwjgl3:-SNAPSHOT"
-        const val controllersDesktop =
-            "com.github.Berstanio.gdx-graalhelper:gdx-svmhelper-extension-controllers-lwjgl3:-SNAPSHOT"
+        const val lwjgl3Backend = "com.github.Berstanio.gdx-graalhelper:gdx-svmhelper-backend-lwjgl3:${Versions.Libgdx.graalVersion}"
+//        const val controllersDesktop = "com.github.Berstanio.gdx-graalhelper:gdx-svmhelper-extension-controllers-lwjgl3:${Versions.Libgdx.graalVersion}"
 
         fun getAll() =
             GraalDesktop::class.memberProperties.filter { it.isConst }.map { it.getter.call().toString() }.toSet()
     }
 
     object GraalCore {
-        const val graalCore = "io.github.berstanio:gdx-svmhelper:1.11.1-SNAPSHOT"
+        const val graalCore = "io.github.berstanio:gdx-svmhelper:${Versions.Libgdx.graalVersion}"
 
         fun getAll() =
             GraalCore::class.memberProperties.filter { it.isConst }.map { it.getter.call().toString() }.toSet()

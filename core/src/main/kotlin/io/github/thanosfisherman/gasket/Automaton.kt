@@ -9,7 +9,7 @@ import ktx.math.vec2
 import kotlin.math.abs
 
 // Tolerance for calculating tangency and overlap
-private const val epsilon = 0.6f
+private const val epsilon = 1f
 private val width = Gdx.graphics.width.toFloat()
 private val height = Gdx.graphics.height.toFloat()
 
@@ -96,13 +96,18 @@ class Automaton {
         // Tangency check based on distances and radii
         val a = abs(d - (r1 + r2)) < epsilon
         val b = abs(d - abs(r2 - r1)) < epsilon
-        return a or b;
+        return a or b
     }
 
     // Check if the potential new circle is valid
     private fun validate(c4: Circle, c1: Circle, c2: Circle, c3: Circle): Boolean {
         // Discards too small circles to avoid infinite recursion
-        if (c4.radius < 2) return false;
+        if (c4.radius < 2) return false
+
+        // Check if all 4 circles are mutually tangential
+        if (!isTangent(c4, c1)) return false
+        if (!isTangent(c4, c2)) return false
+        if (!isTangent(c4, c3)) return false
 
         for (other in allCircles) {
             val d = c4.distance(other)
@@ -112,12 +117,8 @@ class Automaton {
                 return false
             }
         }
-        // Check if all 4 circles are mutually tangential
-        if (!isTangent(c4, c1)) return false;
-        if (!isTangent(c4, c2)) return false;
-        if (!isTangent(c4, c3)) return false;
 
-        return true;
+        return true
     }
 
     private fun randomFloatRange(min: Float, max: Float): Float {
@@ -128,6 +129,5 @@ class Automaton {
     }
 }
 
-data class Triplet(val c1: Circle, val c2: Circle, val c3: Circle) {
+data class Triplet(val c1: Circle, val c2: Circle, val c3: Circle)
 
-}

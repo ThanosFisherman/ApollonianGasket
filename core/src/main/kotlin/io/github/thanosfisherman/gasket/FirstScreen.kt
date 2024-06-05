@@ -20,6 +20,13 @@ class FirstScreen : KtxScreen {
 
     override fun show() {
         Gdx.input.inputProcessor = object : KtxInputAdapter {
+            override fun keyUp(keycode: Int): Boolean {
+                if (keycode == Keys.SPACE) {
+                    automaton = Automaton()
+                }
+                return true
+            }
+
             override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
                 automaton = Automaton()
                 return true
@@ -44,6 +51,7 @@ class FirstScreen : KtxScreen {
     override fun resize(width: Int, height: Int) {
         fps.resize(width, height)
     }
+
     override fun dispose() {
         automaton.dispose()
         fps.dispose()

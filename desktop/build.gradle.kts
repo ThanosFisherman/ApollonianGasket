@@ -10,6 +10,7 @@ version = "1.0-SNAPSHOT"
 
 dependencies {
     addDesktopDependencies()
+    addGraalDesktopDependencies()
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
