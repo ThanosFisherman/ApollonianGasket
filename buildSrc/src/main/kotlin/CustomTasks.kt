@@ -24,7 +24,7 @@ fun Project.registerDesktopTasks(mainClass: String) {
     tasks.getByName<Jar>("jar") {
         dependsOn(configurations.getByName("runtimeClasspath"))
         // sets the name of the .jar file this produces to the name of the game or app.
-        archiveFileName.set(project.name)
+        archiveFileName.set(project.name + "-" + project.version + ".jar")
         val destDir = file(project.layout.buildDirectory.asFile.get().absolutePath + File.separator + "lib")
         // using 'lib' instead of the default 'libs' appears to be needed by jpackageimage.
         destinationDirectory.set(destDir)

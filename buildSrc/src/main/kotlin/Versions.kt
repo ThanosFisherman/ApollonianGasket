@@ -52,7 +52,7 @@ object Versions {
         const val visUiVersion = "1.5.3"
         const val miniaudioVersion = "0.3"
         const val universalTweenVersion = "6.3.3"
-        const val graalVersion = "-SNAPSHOT"
+        const val graalVersion = "2.0.1"
         const val ode4jVersion = "master-SNAPSHOT"
     }
 
