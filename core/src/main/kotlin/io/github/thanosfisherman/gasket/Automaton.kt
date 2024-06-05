@@ -1,7 +1,6 @@
 package io.github.thanosfisherman.gasket
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.MathUtils.PI
 import com.badlogic.gdx.math.RandomXS128
@@ -83,6 +82,10 @@ class Automaton {
         }
         queue.clear()
         queue.addAll(nextQueue)
+    }
+
+    fun dispose() {
+        Circle.dispose()
     }
 
     // Determine if two circles are tangent to each other

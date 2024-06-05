@@ -6,13 +6,26 @@ import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Vector2
 
-data class Circle(var x: Float, var y: Float, val bend: Float, private val color: Color = Color.RED, private val camera: OrthographicCamera = OrthographicCamera()) {
+data class Circle(
+    var x: Float,
+    var y: Float,
+    val bend: Float,
+    private val color: Color = Color.RED,
+    private val camera: OrthographicCamera = OrthographicCamera()
+) {
 
     init {
         camera.setToOrtho(false, 800f, 800f)
     }
 
-    private val shape = ShapeRenderer()
+    companion object {
+        private val shape = ShapeRenderer()
+
+        fun dispose() {
+            shape.dispose()
+        }
+    }
+
     val center = Complex(x, y)
     val radius = kotlin.math.abs(1 / bend)
 
@@ -21,7 +34,7 @@ data class Circle(var x: Float, var y: Float, val bend: Float, private val color
         shape.projectionMatrix = camera.combined
         shape.begin(ShapeRenderer.ShapeType.Line)
         shape.color = color
-        shape.circle(x, y, radius,200)
+        shape.circle(x, y, radius, 200)
         shape.end()
     }
 

@@ -45,6 +45,7 @@ class FirstScreen : KtxScreen {
         fps.resize(width, height)
     }
     override fun dispose() {
+        automaton.dispose()
         fps.dispose()
     }
 }
