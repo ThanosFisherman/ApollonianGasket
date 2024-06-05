@@ -10,12 +10,20 @@ data class Circle(
     var x: Float,
     var y: Float,
     val bend: Float,
-    private val color: Color = Color.RED,
+    private var color: Color = Color.CYAN,
+    private var segments: Int = 200,
+    private var isCone: Boolean = false,
     private val camera: OrthographicCamera = OrthographicCamera()
 ) {
 
     init {
         camera.setToOrtho(false, 800f, 800f)
+    }
+
+    fun config(color: Color, isCone: Boolean, segments: Int) {
+        this.color = color
+        this.segments = segments
+        this.isCone = isCone
     }
 
     companion object {
@@ -30,11 +38,16 @@ data class Circle(
     val radius = kotlin.math.abs(1 / bend)
 
     fun draw(x: Float = this.center.real, y: Float = this.center.img, color: Color = this.color) {
-        Gdx.gl.glLineWidth(2f);
+        Gdx.gl.glLineWidth(2f)
         shape.projectionMatrix = camera.combined
         shape.begin(ShapeRenderer.ShapeType.Line)
         shape.color = color
-        shape.circle(x, y, radius, 200)
+
+        if (isCone)
+            shape.cone(x, y, 0f, radius, 0f, segments)
+        else
+            shape.circle(x, y, radius, 200)
+
         shape.end()
     }
 

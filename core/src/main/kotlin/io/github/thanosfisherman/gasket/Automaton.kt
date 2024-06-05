@@ -1,6 +1,7 @@
 package io.github.thanosfisherman.gasket
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.MathUtils.PI
 import com.badlogic.gdx.math.RandomXS128
@@ -14,8 +15,34 @@ private val width = Gdx.graphics.width.toFloat()
 private val height = Gdx.graphics.height.toFloat()
 
 class Automaton {
+    private val coneSegments = intArrayOf(4, 8, 20).random()
+    private val colorRandom =
+        arrayOf(
+            Color.RED,
+            Color.BLUE,
+            Color.FOREST,
+            Color.YELLOW,
+            Color.CYAN,
+            Color.MAGENTA,
+            Color.CHARTREUSE,
+            Color.VIOLET,
+            Color.SALMON,
+            Color.FIREBRICK,
+            Color.SKY,
+            Color.TEAL,
+            Color.ROYAL,
+            Color.PURPLE,
+            Color.LIME,
+            Color.GREEN,
+            Color.LIGHT_GRAY,
+            Color.WHITE,
+            Color.BROWN,
+            Color.GOLDENROD
+        ).random()
+    private val isConeShape = RandomXS128().nextInt(4) == 0
+
     // Initialize first circle centered on canvas
-    private var c1 = Circle(width / 2, height / 2, -1 / (width / 2))
+    private var c1 = Circle(width / 2, height / 2, -1 / (width / 2), colorRandom, coneSegments, isConeShape)
 
     private val r2 = randomFloatRange(100f, c1.radius / 2)
 
@@ -27,13 +54,13 @@ class Automaton {
         .setLength(c1.radius - r2)
 
     // Second circle positioned randomly within the first
-    private val c2 = Circle(width / 2 + v.x, height / 2 + v.y, 1 / r2)
+    private val c2 = Circle(width / 2 + v.x, height / 2 + v.y, 1 / r2, colorRandom, coneSegments, isConeShape)
 
     private val r3 = v.len()
     private val v2 = Vector2(v).rotateRad(PI).setLength(c1.radius - r3)
 
     // Third circle also positioned relative to the first
-    private val c3 = Circle(width / 2 + v2.x, height / 2 + v2.y, 1 / r3)
+    private val c3 = Circle(width / 2 + v2.x, height / 2 + v2.y, 1 / r3, colorRandom, coneSegments, isConeShape)
 
     // All circles in the gasket
     private val allCircles = mutableListOf<Circle>().apply {
@@ -69,6 +96,7 @@ class Automaton {
             for (newCircle in newCircles) {
 
                 if (validate(newCircle, c1, c2, c3)) {
+                    newCircle.config(colorRandom, isConeShape, coneSegments)
                     allCircles.add(newCircle)
                     // New triplets formed with the new circle for the next generation
                     val t1 = Triplet(c1, c2, newCircle)
@@ -102,7 +130,7 @@ class Automaton {
     // Check if the potential new circle is valid
     private fun validate(c4: Circle, c1: Circle, c2: Circle, c3: Circle): Boolean {
         // Discards too small circles to avoid infinite recursion
-        if (c4.radius < 2) return false
+        if (c4.radius < 1) return false
 
         // Check if all 4 circles are mutually tangential
         if (!isTangent(c4, c1)) return false
