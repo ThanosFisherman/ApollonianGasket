@@ -24,6 +24,7 @@ val buildJavaScript = tasks.register<JavaExec>("buildJavaScript") {
 }
 
 tasks.build.configure { dependsOn(buildJavaScript) }
+
 val run = tasks.register("run") {
     description = "Run the JavaScript application hosted via a local Jetty server at http://localhost:8080/"
     dependsOn(buildJavaScript, ":teavm:jettyRun")

@@ -20,10 +20,10 @@ object TeaVMLauncher {
     fun main(args: Array<String>) {
         val config = TeaApplicationConfiguration("canvas").apply {
             antialiasing = true
+            // change these to both 0 to use all available space, or both -1 for the canvas size.
+            width = 800
+            height = 800
         }
-        // change these to both 0 to use all available space, or both -1 for the canvas size.
-        config.width = 0
-        config.height = 0
 
         TeaApplication(create(), config)
     }
