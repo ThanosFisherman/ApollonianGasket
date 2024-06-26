@@ -40,9 +40,9 @@ if [ "$#" -ne 1 ]; then
 fi
 
 # Define the directory path
-core_path="core/src/main/kotlin/io/github/thanosfisherman"
-teavm_path="teavm/src/main/kotlin/io/github/thanosfisherman"
-desktop_path="desktop/src/main/kotlin/io/github/thanosfisherman"
+core_path="core/src/main/java/io/github/thanosfisherman"
+teavm_path="teavm/src/main/java/io/github/thanosfisherman"
+desktop_path="desktop/src/main/java/io/github/thanosfisherman"
 android_path="android/src/main/java/io/github/thanosfisherman"
 
 rename_dir "$core_path" "$1"
