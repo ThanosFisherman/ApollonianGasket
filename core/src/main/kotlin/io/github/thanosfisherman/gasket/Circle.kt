@@ -16,8 +16,12 @@ data class Circle(
     private val camera: OrthographicCamera = OrthographicCamera()
 ) {
 
+    private val width = Gdx.graphics.width.toFloat()
+    private val height = Gdx.graphics.height.toFloat()
+
     init {
-        camera.setToOrtho(false, 800f, 800f)
+        camera.setToOrtho(false, width, height)
+        Gdx.gl.glLineWidth(1.64f)
     }
 
     fun config(color: Color, isCone: Boolean, segments: Int) {
@@ -38,7 +42,6 @@ data class Circle(
     val radius = kotlin.math.abs(1 / bend)
 
     fun draw(x: Float = this.center.real, y: Float = this.center.img, color: Color = this.color) {
-        Gdx.gl.glLineWidth(2f)
         shape.projectionMatrix = camera.combined
         shape.begin(ShapeRenderer.ShapeType.Line)
         shape.color = color

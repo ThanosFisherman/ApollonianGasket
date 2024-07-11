@@ -14,32 +14,43 @@ private const val epsilon = 1f
 private val width = Gdx.graphics.width.toFloat()
 private val height = Gdx.graphics.height.toFloat()
 
-class Automaton {
-    private val coneSegments = intArrayOf(4, 8, 20).random()
+class Gasket {
+    private val coneSegments = intArrayOf(4, 8, 20, 50).random()
     private val colorRandom =
         arrayOf(
-            Color.RED,
             Color.BLUE,
-            Color.FOREST,
-            Color.YELLOW,
             Color.CYAN,
             Color.MAGENTA,
-            Color.CHARTREUSE,
             Color.VIOLET,
+            Color.PURPLE,
+            Color.PINK,
             Color.SALMON,
+            Color.RED,
+            Color.SCARLET,
+            Color.CORAL,
             Color.FIREBRICK,
+            Color.MAROON,
             Color.SKY,
             Color.TEAL,
+            Color.NAVY,
+            Color.SLATE,
             Color.ROYAL,
-            Color.PURPLE,
+            Color.FOREST,
             Color.LIME,
+            Color.CHARTREUSE,
             Color.GREEN,
+            Color.OLIVE,
+            Color.GRAY,
             Color.LIGHT_GRAY,
             Color.WHITE,
             Color.BROWN,
-            Color.GOLDENROD
+            Color.TAN,
+            Color.YELLOW,
+            Color.GOLD,
+            Color.GOLDENROD,
+            Color.ORANGE,
         ).random()
-    private val isConeShape = RandomXS128().nextInt(4) == 0
+    private val isConeShape = RandomXS128().nextInt(3) == 0
 
     // Initialize first circle centered on canvas
     private var c1 = Circle(width / 2, height / 2, -1 / (width / 2), colorRandom, coneSegments, isConeShape)

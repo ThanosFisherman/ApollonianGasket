@@ -5,29 +5,28 @@ import com.badlogic.gdx.Input.Keys
 import ktx.app.KtxInputAdapter
 import ktx.app.KtxScreen
 import ktx.app.clearScreen
-import ktx.log.logger
 
-private val logger = logger<FirstScreen>()
+//private val logger = logger<FirstScreen>()
 
 class FirstScreen : KtxScreen {
 
     //private val camera = OrthographicCamera().apply { setToOrtho(false, 800f, 800f) }
 
     //private val vector = vec3(Gdx.input.x.toFloat(), Gdx.input.y.toFloat())
-    private var automaton = Automaton()
+    private var gasket = Gasket()
     private val fps = FrameRate()
 
     override fun show() {
         Gdx.input.inputProcessor = object : KtxInputAdapter {
             override fun keyUp(keycode: Int): Boolean {
                 if (keycode == Keys.SPACE) {
-                    automaton = Automaton()
+                    gasket = Gasket()
                 }
                 return true
             }
 
             override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
-                automaton = Automaton()
+                gasket = Gasket()
                 return true
             }
         }
@@ -43,7 +42,7 @@ class FirstScreen : KtxScreen {
         if (Gdx.input.isKeyPressed(Keys.ESCAPE))
             Gdx.app.exit()
 
-        automaton.draw()
+        gasket.draw()
         fps.render()
     }
 
@@ -52,7 +51,7 @@ class FirstScreen : KtxScreen {
     }
 
     override fun dispose() {
-        automaton.dispose()
+        gasket.dispose()
         fps.dispose()
     }
 }
