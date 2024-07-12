@@ -10,7 +10,8 @@ The algorithm uses René Descartes' formula aka **Descartes theorem** to calcula
 
 ## Usage
 
-Press **Space** or **Left Mouse Click** to generate new gaskets!
+* Press **Space** or **Left Mouse Click** to generate new gaskets!
+* Press **F3** to show/hide Frames Per Second
 
 ## Screenshot
 
