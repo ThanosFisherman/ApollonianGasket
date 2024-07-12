@@ -1,7 +1,6 @@
 @file:JvmName("TeaVMBuilder")
 package io.github.thanosfisherman.gasket.teavm
 
-import com.github.xpenatan.gdx.backends.teavm.config.AssetFileHandle
 import com.github.xpenatan.gdx.backends.teavm.config.TeaBuildConfiguration
 import com.github.xpenatan.gdx.backends.teavm.config.TeaBuilder
 import java.io.File
@@ -9,7 +8,7 @@ import java.io.File
 /** Builds the TeaVM/HTML application.  */
 fun main() {
     val teaBuildConfiguration = TeaBuildConfiguration()
-    teaBuildConfiguration.assetsPath.add(AssetFileHandle("../assets"))
+    teaBuildConfiguration.assetsPath.add(File("../assets"))
     teaBuildConfiguration.webappPath = File("build/dist").getCanonicalPath()
 
     // Register any extra classpath assets here:
