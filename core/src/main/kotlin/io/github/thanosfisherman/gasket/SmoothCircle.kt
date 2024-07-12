@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.GdxRuntimeException
 
+// Unused
 data class SmoothCircle(var x: Float, var y: Float, var bend: Float, var color: Color = Color.RED) {
     val radius = kotlin.math.abs(1 / bend)
     val center = Complex(x, y)

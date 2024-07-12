@@ -1,7 +1,6 @@
 package io.github.thanosfisherman.gasket
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.MathUtils.PI
 import com.badlogic.gdx.math.RandomXS128
@@ -16,44 +15,12 @@ private val height = Gdx.graphics.height.toFloat()
 
 class Gasket {
     private val coneSegments = intArrayOf(4, 8, 20, 50).random()
-    private val colorRandom =
-        arrayOf(
-            Color.BLUE,
-            Color.CYAN,
-            Color.MAGENTA,
-            Color.VIOLET,
-            Color.PURPLE,
-            Color.PINK,
-            Color.SALMON,
-            Color.RED,
-            Color.SCARLET,
-            Color.CORAL,
-            Color.FIREBRICK,
-            Color.MAROON,
-            Color.SKY,
-            Color.TEAL,
-            Color.NAVY,
-            Color.SLATE,
-            Color.ROYAL,
-            Color.FOREST,
-            Color.LIME,
-            Color.CHARTREUSE,
-            Color.GREEN,
-            Color.OLIVE,
-            Color.GRAY,
-            Color.LIGHT_GRAY,
-            Color.WHITE,
-            Color.BROWN,
-            Color.TAN,
-            Color.YELLOW,
-            Color.GOLD,
-            Color.GOLDENROD,
-            Color.ORANGE,
-        ).random()
     private val isConeShape = RandomXS128().nextInt(3) == 0
+    private val colorRandomizer = ColorRandomizer()
 
     // Initialize first circle centered on canvas
-    private var c1 = Circle(width / 2, height / 2, -1 / (width / 2), colorRandom, coneSegments, isConeShape)
+    private var c1 =
+        Circle(width / 2, height / 2, -1 / (width / 2), colorRandomizer.randomColor(), coneSegments, isConeShape)
 
     private val r2 = randomFloatRange(100f, c1.radius / 2)
 
@@ -65,13 +32,15 @@ class Gasket {
         .setLength(c1.radius - r2)
 
     // Second circle positioned randomly within the first
-    private val c2 = Circle(width / 2 + v.x, height / 2 + v.y, 1 / r2, colorRandom, coneSegments, isConeShape)
+    private val c2 =
+        Circle(width / 2 + v.x, height / 2 + v.y, 1 / r2, colorRandomizer.randomColor(), coneSegments, isConeShape)
 
     private val r3 = v.len()
     private val v2 = Vector2(v).rotateRad(PI).setLength(c1.radius - r3)
 
     // Third circle also positioned relative to the first
-    private val c3 = Circle(width / 2 + v2.x, height / 2 + v2.y, 1 / r3, colorRandom, coneSegments, isConeShape)
+    private val c3 =
+        Circle(width / 2 + v2.x, height / 2 + v2.y, 1 / r3, colorRandomizer.randomColor(), coneSegments, isConeShape)
 
     // All circles in the gasket
     private val allCircles = mutableListOf<Circle>().apply {
@@ -107,7 +76,7 @@ class Gasket {
             for (newCircle in newCircles) {
 
                 if (validate(newCircle, c1, c2, c3)) {
-                    newCircle.config(colorRandom, isConeShape, coneSegments)
+                    newCircle.config(colorRandomizer.randomColor(), isConeShape, coneSegments)
                     allCircles.add(newCircle)
                     // New triplets formed with the new circle for the next generation
                     val t1 = Triplet(c1, c2, newCircle)
