@@ -6,10 +6,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.utils.Disposable
 import com.badlogic.gdx.utils.TimeUtils
+import ktx.assets.disposeSafely
 
 
 class FrameRate : Disposable {
     var lastTimeCounted: Long
+    var isRendered = true
     private var sinceChange = 0f
     private var frameRate: Float
     private val font: BitmapFont
@@ -33,6 +35,8 @@ class FrameRate : Disposable {
     }
 
     fun update() {
+        if (!isRendered) return
+
         val delta: Long = TimeUtils.timeSinceMillis(lastTimeCounted)
         lastTimeCounted = TimeUtils.millis()
 
@@ -44,13 +48,14 @@ class FrameRate : Disposable {
     }
 
     fun render() {
+        if (!isRendered) return
         batch.begin()
         font.draw(batch, frameRate.toInt().toString() + " fps", 3f, (Gdx.graphics.height - 3).toFloat())
         batch.end()
     }
 
     override fun dispose() {
-        font.dispose()
-        batch.dispose()
+        font.disposeSafely()
+        batch.disposeSafely()
     }
 }

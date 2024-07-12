@@ -22,6 +22,9 @@ class FirstScreen : KtxScreen {
                 if (keycode == Keys.SPACE) {
                     gasket = Gasket()
                 }
+                if (keycode == Keys.F3) {
+                    fps.isRendered = !fps.isRendered
+                }
                 return true
             }
 
