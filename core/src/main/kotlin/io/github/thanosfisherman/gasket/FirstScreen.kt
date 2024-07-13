@@ -16,7 +16,7 @@ class FirstScreen : KtxScreen {
 
     //private val vector = vec3(Gdx.input.x.toFloat(), Gdx.input.y.toFloat())
     private val fps = FrameRate()
-    private val gasketPool: Pool<Gasket> = pool { Gasket() }
+    private val gasketPool: Pool<Gasket> = pool(30) { Gasket() }
     lateinit var gasket: Gasket
 
     override fun show() {

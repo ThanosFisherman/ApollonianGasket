@@ -20,7 +20,7 @@ class Gasket {
     private var coneSegments = intArrayOf(4, 8, 20, 50).random()
     private var isConeShape = RandomXS128().nextInt(3) == 0
     private var colorRandomizer = ColorRandomizer()
-    private var circlesPool: Pool<Circle> = pool(1000) { Circle() }
+    private var circlesPool: Pool<Circle> = pool(1200) { Circle() }
 
     // Initialize first circle centered on canvas
     private var c1 = circlesPool.obtain().also {

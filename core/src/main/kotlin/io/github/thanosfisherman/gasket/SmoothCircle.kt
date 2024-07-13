@@ -1,5 +1,5 @@
 package io.github.thanosfisherman.gasket
-
+/*
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.*
 import com.badlogic.gdx.graphics.VertexAttributes.Usage
@@ -118,4 +118,4 @@ data class SmoothCircle(var x: Float, var y: Float, var bend: Float, var color: 
     fun distance(other: SmoothCircle): Float {
         return Vector2.dst(x, y, other.x, other.y)
     }
-}
+}*/
