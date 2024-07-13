@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.MathUtils.PI
 import com.badlogic.gdx.math.RandomXS128
 import com.badlogic.gdx.math.Vector2
+import ktx.collections.GdxArray
 import ktx.math.vec2
 import kotlin.math.abs
 
@@ -14,47 +15,96 @@ private val width = Gdx.graphics.width.toFloat()
 private val height = Gdx.graphics.height.toFloat()
 
 class Gasket {
-    private val coneSegments = intArrayOf(4, 8, 20, 50).random()
-    private val isConeShape = RandomXS128().nextInt(3) == 0
-    private val colorRandomizer = ColorRandomizer()
+    private var coneSegments = intArrayOf(4, 8, 20, 50).random()
+    private var isConeShape = RandomXS128().nextInt(3) == 0
+    private var colorRandomizer = ColorRandomizer()
 
     // Initialize first circle centered on canvas
     private var c1 =
         Circle(width / 2, height / 2, -1 / (width / 2), colorRandomizer.randomColor(), coneSegments, isConeShape)
 
-    private val r2 = randomFloatRange(100f, c1.radius / 2)
+    private var r2 = randomFloatRange(100f, c1.radius / 2)
 
     // Generate a random angle between 0 and 2*PI
-    private val randomAngleRad: Float = randomFloatRange(0f, 2 * PI)
+    private var randomAngleRad: Float = randomFloatRange(0f, 2 * PI)
 
     // Convert the angle to a unit vector
-    private val v = vec2(MathUtils.cos(randomAngleRad), MathUtils.sin(randomAngleRad))
+    private var v = vec2(MathUtils.cos(randomAngleRad), MathUtils.sin(randomAngleRad))
         .setLength(c1.radius - r2)
 
     // Second circle positioned randomly within the first
-    private val c2 =
+    private var c2 =
         Circle(width / 2 + v.x, height / 2 + v.y, 1 / r2, colorRandomizer.randomColor(), coneSegments, isConeShape)
 
-    private val r3 = v.len()
-    private val v2 = Vector2(v).rotateRad(PI).setLength(c1.radius - r3)
+    private var r3 = v.len()
+    private var v2 = Vector2(v).rotateRad(PI).setLength(c1.radius - r3)
 
     // Third circle also positioned relative to the first
-    private val c3 =
+    private var c3 =
         Circle(width / 2 + v2.x, height / 2 + v2.y, 1 / r3, colorRandomizer.randomColor(), coneSegments, isConeShape)
 
     // All circles in the gasket
-    private val allCircles = mutableListOf<Circle>().apply {
+    private var allCircles = GdxArray<Circle>(false, 64).apply {
         add(c1)
         add(c2)
         add(c3)
     }
 
     // Queue for circles to process for next generation
-    private var queue = mutableListOf<Triplet>().apply {
+    private var queue = GdxArray<Triplet>(false, 64).apply {
         // Initial triplet for generating next generation of circles
         add(Triplet(c1, c2, c3))
     }
 
+    fun init() {
+        coneSegments = intArrayOf(4, 8, 20, 50).random()
+        isConeShape = RandomXS128().nextInt(3) == 0
+        colorRandomizer = ColorRandomizer()
+
+        // Initialize first circle centered on canvas
+        c1 =
+            Circle(width / 2, height / 2, -1 / (width / 2), colorRandomizer.randomColor(), coneSegments, isConeShape)
+
+        r2 = randomFloatRange(100f, c1.radius / 2)
+
+        // Generate a random angle between 0 and 2*PI
+        randomAngleRad = randomFloatRange(0f, 2 * PI)
+
+        // Convert the angle to a unit vector
+        v = vec2(MathUtils.cos(randomAngleRad), MathUtils.sin(randomAngleRad))
+            .setLength(c1.radius - r2)
+
+        // Second circle positioned randomly within the first
+        c2 =
+            Circle(width / 2 + v.x, height / 2 + v.y, 1 / r2, colorRandomizer.randomColor(), coneSegments, isConeShape)
+
+        r3 = v.len()
+        v2 = Vector2(v).rotateRad(PI).setLength(c1.radius - r3)
+
+        // Third circle also positioned relative to the first
+        c3 =
+            Circle(
+                width / 2 + v2.x,
+                height / 2 + v2.y,
+                1 / r3,
+                colorRandomizer.randomColor(),
+                coneSegments,
+                isConeShape
+            )
+
+        // All circles in the gasket
+        allCircles = GdxArray<Circle>(false, 64).apply {
+            add(c1)
+            add(c2)
+            add(c3)
+        }
+
+        // Queue for circles to process for next generation
+        queue = GdxArray<Triplet>(false, 64).apply {
+            // Initial triplet for generating next generation of circles
+            add(Triplet(c1, c2, c3))
+        }
+    }
 
     fun draw() {
 
@@ -65,8 +115,8 @@ class Gasket {
         }
     }
 
-    fun nextGeneration() {
-        val nextQueue = mutableListOf<Triplet>()
+    private fun nextGeneration() {
+        val nextQueue = GdxArray<Triplet>(false, 16)
         for (triplet in queue) {
             val (c1, c2, c3) = triplet
             // Calculate curvature for the next circle
