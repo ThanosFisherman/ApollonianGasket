@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.MathUtils.PI
 import com.badlogic.gdx.math.RandomXS128
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.utils.Pool
+import ktx.assets.pool
 import ktx.collections.GdxArray
 import ktx.math.vec2
 import kotlin.math.abs
@@ -18,10 +20,19 @@ class Gasket {
     private var coneSegments = intArrayOf(4, 8, 20, 50).random()
     private var isConeShape = RandomXS128().nextInt(3) == 0
     private var colorRandomizer = ColorRandomizer()
+    private var circlesPool: Pool<Circle> = pool(1000) { Circle() }
 
     // Initialize first circle centered on canvas
-    private var c1 =
-        Circle(width / 2, height / 2, -1 / (width / 2), colorRandomizer.randomColor(), coneSegments, isConeShape)
+    private var c1 = circlesPool.obtain().also {
+        it.init(
+            width / 2,
+            height / 2,
+            -1 / (width / 2),
+            colorRandomizer.randomColor(),
+            coneSegments,
+            isConeShape
+        )
+    }
 
     private var r2 = randomFloatRange(100f, c1.radius / 2)
 
@@ -33,15 +44,17 @@ class Gasket {
         .setLength(c1.radius - r2)
 
     // Second circle positioned randomly within the first
-    private var c2 =
-        Circle(width / 2 + v.x, height / 2 + v.y, 1 / r2, colorRandomizer.randomColor(), coneSegments, isConeShape)
+    private var c2 = circlesPool.obtain().also {
+        it.init(width / 2 + v.x, height / 2 + v.y, 1 / r2, colorRandomizer.randomColor(), coneSegments, isConeShape)
+    }
 
     private var r3 = v.len()
     private var v2 = Vector2(v).rotateRad(PI).setLength(c1.radius - r3)
 
     // Third circle also positioned relative to the first
-    private var c3 =
-        Circle(width / 2 + v2.x, height / 2 + v2.y, 1 / r3, colorRandomizer.randomColor(), coneSegments, isConeShape)
+    private var c3 = circlesPool.obtain().also {
+        it.init(width / 2 + v2.x, height / 2 + v2.y, 1 / r3, colorRandomizer.randomColor(), coneSegments, isConeShape)
+    }
 
     // All circles in the gasket
     private var allCircles = GdxArray<Circle>(false, 64).apply {
@@ -61,9 +74,19 @@ class Gasket {
         isConeShape = RandomXS128().nextInt(3) == 0
         colorRandomizer = ColorRandomizer()
 
+        allCircles.forEach { circlesPool.free(it) }
+
         // Initialize first circle centered on canvas
-        c1 =
-            Circle(width / 2, height / 2, -1 / (width / 2), colorRandomizer.randomColor(), coneSegments, isConeShape)
+        c1 = circlesPool.obtain().also {
+            it.init(
+                width / 2,
+                height / 2,
+                -1 / (width / 2),
+                colorRandomizer.randomColor(),
+                coneSegments,
+                isConeShape
+            )
+        }
 
         r2 = randomFloatRange(100f, c1.radius / 2)
 
@@ -75,15 +98,23 @@ class Gasket {
             .setLength(c1.radius - r2)
 
         // Second circle positioned randomly within the first
-        c2 =
-            Circle(width / 2 + v.x, height / 2 + v.y, 1 / r2, colorRandomizer.randomColor(), coneSegments, isConeShape)
+        c2 = circlesPool.obtain().also {
+            it.init(
+                width / 2 + v.x,
+                height / 2 + v.y,
+                1 / r2,
+                colorRandomizer.randomColor(),
+                coneSegments,
+                isConeShape
+            )
+        }
 
         r3 = v.len()
         v2 = Vector2(v).rotateRad(PI).setLength(c1.radius - r3)
 
         // Third circle also positioned relative to the first
-        c3 =
-            Circle(
+        c3 = circlesPool.obtain().also {
+            it.init(
                 width / 2 + v2.x,
                 height / 2 + v2.y,
                 1 / r3,
@@ -91,6 +122,7 @@ class Gasket {
                 coneSegments,
                 isConeShape
             )
+        }
 
         // All circles in the gasket
         allCircles = GdxArray<Circle>(false, 64).apply {
@@ -122,7 +154,7 @@ class Gasket {
             // Calculate curvature for the next circle
             val k4 = Descartes.simple(c1, c2, c3)
             // Generate new circles based on Complex Descartes' theorem
-            val newCircles = Descartes.complex(c1, c2, c3, k4)
+            val newCircles = Descartes.complex(c1, c2, c3, k4, circlesPool)
             for (newCircle in newCircles) {
 
                 if (validate(newCircle, c1, c2, c3)) {
@@ -143,6 +175,8 @@ class Gasket {
     }
 
     fun dispose() {
+        circlesPool.clear()
+        allCircles.clear()
         Circle.dispose()
     }
 

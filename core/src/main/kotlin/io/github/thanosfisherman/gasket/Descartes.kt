@@ -1,5 +1,8 @@
 package io.github.thanosfisherman.gasket
 
+import com.badlogic.gdx.utils.Pool
+import ktx.assets.invoke
+
 object Descartes {
 
     // Calculate curvatures (k-values) for new circles using Descartes' theorem
@@ -18,7 +21,7 @@ object Descartes {
 
     // Complex calculations based on Descartes' theorem for circle generation
 // https://en.wikipedia.org/wiki/Descartes%27_theorem
-    fun complex(c1: Circle, c2: Circle, c3: Circle, k4: FloatArray): Set<Circle> {
+    fun complex(c1: Circle, c2: Circle, c3: Circle, k4: FloatArray, pool: Pool<Circle>): Set<Circle> {
         // Curvature and center calculations for new circles
         val k1 = c1.bend;
         val k2 = c2.bend;
@@ -35,9 +38,13 @@ object Descartes {
         val root = sqrt(zk1 * zk2 + zk2 * zk3 + zk1 * zk3) * 2
 
         val streamPlus =
-            k4.map { it to (sum + root) * (1 / it) }.map { Circle(it.second.real, it.second.img, it.first) }
+            k4.map { it to (sum + root) * (1 / it) }.map { pair ->
+                pool.obtain().also { circle: Circle -> circle.init(pair.second.real, pair.second.img, pair.first) }
+            }
         val streamMinus =
-            k4.map { it to (sum - root) * (1 / it) }.map { Circle(it.second.real, it.second.img, it.first) }
+            k4.map { it to (sum - root) * (1 / it) }.map { pair ->
+                pool.obtain().also { circle: Circle -> circle.init(pair.second.real, pair.second.img, pair.first) }
+            }
 
         return (streamPlus + streamMinus).toHashSet()
     }
