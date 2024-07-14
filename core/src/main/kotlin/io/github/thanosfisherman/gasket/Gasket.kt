@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.MathUtils.PI
 import com.badlogic.gdx.math.RandomXS128
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Pool
+import com.badlogic.gdx.utils.TimeUtils
 import ktx.assets.pool
 import ktx.collections.GdxArray
 import ktx.math.vec2
@@ -21,6 +22,8 @@ class Gasket {
     private var isConeShape = RandomXS128().nextInt(3) == 0
     private var colorRandomizer = ColorRandomizer()
     private var circlesPool: Pool<Circle> = pool(1200) { Circle() }
+    private var lastTimeCounted = TimeUtils.millis()
+    private var sinceChange = 0f
 
     // Initialize first circle centered on canvas
     private var c1 = circlesPool.obtain().also {
@@ -140,8 +143,14 @@ class Gasket {
 
     fun draw() {
 
-        nextGeneration()
+        val delta: Long = TimeUtils.millis() - lastTimeCounted
+        lastTimeCounted = TimeUtils.millis()
 
+        sinceChange += delta
+        if (sinceChange >= 500) {
+            sinceChange = 0f
+            nextGeneration()
+        }
         for (c in allCircles) {
             c.draw()
         }
