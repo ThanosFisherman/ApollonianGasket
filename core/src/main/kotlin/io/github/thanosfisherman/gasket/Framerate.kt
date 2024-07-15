@@ -1,37 +1,37 @@
 package io.github.thanosfisherman.gasket
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.OrthographicCamera
+import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.utils.Disposable
 import com.badlogic.gdx.utils.TimeUtils
+import com.badlogic.gdx.utils.viewport.ScreenViewport
+import com.badlogic.gdx.utils.viewport.Viewport
 import ktx.assets.disposeSafely
 
 
 class FrameRate : Disposable {
-    var lastTimeCounted: Long
-    var isRendered = true
+    private var lastTimeCounted: Long
+    var isRendered = false
     private var sinceChange = 0f
     private var frameRate: Float
     private val font: BitmapFont
     private val batch: SpriteBatch
-    private var cam: OrthographicCamera
+    private val viewport: Viewport = ScreenViewport()
 
 
     init {
         lastTimeCounted = TimeUtils.millis()
         frameRate = Gdx.graphics.framesPerSecond.toFloat()
         font = BitmapFont()
+        font.region.texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest)
         batch = SpriteBatch()
-        cam = OrthographicCamera(Gdx.graphics.width.toFloat(), Gdx.graphics.height.toFloat())
     }
 
     fun resize(screenWidth: Int, screenHeight: Int) {
-        cam = OrthographicCamera(screenWidth.toFloat(), screenHeight.toFloat())
-        cam.translate((screenWidth / 2).toFloat(), (screenHeight / 2).toFloat())
-        cam.update()
-        batch.projectionMatrix = cam.combined
+        viewport.update(screenWidth, screenHeight, true)
+        batch.projectionMatrix = viewport.camera.combined
     }
 
     fun update() {
@@ -49,8 +49,10 @@ class FrameRate : Disposable {
 
     fun render() {
         if (!isRendered) return
+
+        viewport.apply(true)
         batch.begin()
-        font.draw(batch, frameRate.toInt().toString() + " fps", 3f, (Gdx.graphics.height - 3).toFloat())
+        font.draw(batch, frameRate.toInt().toString() + " fps", 4f, viewport.worldHeight - 4f)
         batch.end()
     }
 

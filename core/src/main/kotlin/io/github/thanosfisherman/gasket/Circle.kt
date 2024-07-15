@@ -2,11 +2,13 @@ package io.github.thanosfisherman.gasket
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
-import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.utils.viewport.Viewport
+import ktx.graphics.center
 
 data class Circle(
+    private val viewport: Viewport,
     var x: Float = 0f,
     var y: Float = 0f,
     var bend: Float = 0f,
@@ -15,7 +17,6 @@ data class Circle(
     private var isCone: Boolean = false
 ) {
 
-    private val camera: OrthographicCamera = OrthographicCamera()
     var center = Complex(x, y)
     var radius = kotlin.math.abs(1 / bend)
 
@@ -23,7 +24,8 @@ data class Circle(
     private val height = Gdx.graphics.height.toFloat()
 
     init {
-        camera.setToOrtho(false, width, height)
+        viewport.camera.center(width, height)
+        shape.projectionMatrix = viewport.camera.combined
         Gdx.gl.glLineWidth(1.64f)
     }
 
@@ -61,7 +63,8 @@ data class Circle(
 
 
     fun draw(x: Float = this.center.real, y: Float = this.center.img, color: Color = this.color) {
-        shape.projectionMatrix = camera.combined
+
+        viewport.apply(true)
         shape.begin(ShapeRenderer.ShapeType.Line)
         shape.color = color
 

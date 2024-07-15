@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.RandomXS128
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Pool
 import com.badlogic.gdx.utils.TimeUtils
+import com.badlogic.gdx.utils.viewport.Viewport
 import ktx.assets.pool
 import ktx.collections.GdxArray
 import ktx.math.vec2
@@ -17,11 +18,11 @@ private const val epsilon = 1f
 private val width = Gdx.graphics.width.toFloat()
 private val height = Gdx.graphics.height.toFloat()
 
-class Gasket {
+class Gasket(viewport: Viewport) {
     private var coneSegments = intArrayOf(4, 8, 20, 50).random()
     private var isConeShape = RandomXS128().nextInt(3) == 0
     private var colorRandomizer = ColorRandomizer()
-    private var circlesPool: Pool<Circle> = pool(1200) { Circle() }
+    private var circlesPool: Pool<Circle> = pool(1200) { Circle(viewport) }
     private var lastTimeCounted = TimeUtils.millis()
     private var sinceChange = 0f
 
@@ -147,7 +148,7 @@ class Gasket {
         lastTimeCounted = TimeUtils.millis()
 
         sinceChange += delta
-        if (sinceChange >= 500) {
+        if (sinceChange >= 1) {
             sinceChange = 0f
             nextGeneration()
         }

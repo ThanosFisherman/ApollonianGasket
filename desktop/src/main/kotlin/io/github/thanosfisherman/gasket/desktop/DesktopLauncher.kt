@@ -15,7 +15,7 @@ fun main() {
         Lwjgl3ApplicationConfiguration().apply {
             val displayMode = Lwjgl3ApplicationConfiguration.getDisplayMode()
             val windowSize = (displayMode.width * 0.75f) / 16f * 9f
-            setResizable(false)
+            //setResizable(false)
             setWindowedMode(900, 900)
             setWindowIcon(*(arrayOf(128, 64, 32, 16).map { "libgdx$it.png" }.toTypedArray()))
             setTitle("Apollonian Gasket!")

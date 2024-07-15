@@ -10,13 +10,13 @@ import ktx.assets.pool
 
 //private val logger = logger<FirstScreen>()
 
-class FirstScreen : KtxScreen {
+class FirstScreen(private val game: Game) : KtxScreen {
 
     //private val camera = OrthographicCamera().apply { setToOrtho(false, 800f, 800f) }
 
     //private val vector = vec3(Gdx.input.x.toFloat(), Gdx.input.y.toFloat())
     private val fps = FrameRate()
-    private val gasketPool: Pool<Gasket> = pool(30) { Gasket() }
+    private val gasketPool: Pool<Gasket> = pool(30) { Gasket(game.viewport) }
     lateinit var gasket: Gasket
 
     override fun show() {
@@ -63,6 +63,7 @@ class FirstScreen : KtxScreen {
 
     override fun resize(width: Int, height: Int) {
         fps.resize(width, height)
+        game.viewport.update(width, height, true)
     }
 
     override fun dispose() {
