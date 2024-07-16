@@ -28,7 +28,7 @@ class FirstScreen(private val game: Game) : KtxScreen {
     private val shape = ShapeRenderer()
 
     private val fps = FrameRate()
-    private val gasketPool: Pool<Gasket> = pool(30) { Gasket(gameViewport.worldWidth, gameViewport.worldHeight).init() }
+    private val gasketPool: Pool<Gasket> = pool(30) { Gasket(gameViewport.worldWidth, gameViewport.worldHeight) }
     lateinit var gasket: Gasket
 
     override fun show() {
@@ -42,7 +42,6 @@ class FirstScreen(private val game: Game) : KtxScreen {
                 if (keycode == Keys.SPACE) {
                     gasketPool.free(gasket)
                     gasket = gasketPool.obtain()
-                    gasket.init()
                 }
                 if (keycode == Keys.F2) {
                     fps.isRendered = !fps.isRendered
@@ -53,7 +52,6 @@ class FirstScreen(private val game: Game) : KtxScreen {
             override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
                 gasketPool.free(gasket)
                 gasket = gasketPool.obtain()
-                gasket.init()
                 return true
             }
         }

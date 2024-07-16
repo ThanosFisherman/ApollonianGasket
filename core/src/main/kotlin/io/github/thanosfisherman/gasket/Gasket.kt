@@ -17,7 +17,7 @@ import kotlin.math.abs
 // Tolerance for calculating tangency and overlap
 private const val epsilon = 1f
 
-class Gasket(private var width: Float, private var height: Float) {
+class Gasket(private var width: Float, private var height: Float) : Pool.Poolable {
     private var coneSegments = intArrayOf(4, 8, 20, 50).random()
     private var isConeShape = RandomXS128().nextInt(3) == 0
     private var colorRandomizer = ColorRandomizer()
@@ -44,7 +44,11 @@ class Gasket(private var width: Float, private var height: Float) {
     // Queue for circles to process for next generation
     private var queue = GdxArray<Triplet>(false, 64)
 
-    fun init(): Gasket {
+    init {
+        reset()
+    }
+
+    override fun reset() {
         coneSegments = intArrayOf(4, 8, 20, 50).random()
         isConeShape = RandomXS128().nextInt(3) == 0
         colorRandomizer = ColorRandomizer()
@@ -111,8 +115,6 @@ class Gasket(private var width: Float, private var height: Float) {
             // Initial triplet for generating next generation of circles
             add(Triplet(c1, c2, c3))
         }
-
-        return this
     }
 
     fun draw(shape: ShapeRenderer) {
