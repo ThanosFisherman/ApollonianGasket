@@ -15,8 +15,6 @@ import kotlin.math.abs
 
 // Tolerance for calculating tangency and overlap
 private const val epsilon = 1f
-private val width = Gdx.graphics.width.toFloat()
-private val height = Gdx.graphics.height.toFloat()
 
 class Gasket(viewport: Viewport) {
     private var coneSegments = intArrayOf(4, 8, 20, 50).random()
@@ -25,6 +23,9 @@ class Gasket(viewport: Viewport) {
     private var circlesPool: Pool<Circle> = pool(1200) { Circle(viewport) }
     private var lastTimeCounted = TimeUtils.millis()
     private var sinceChange = 0f
+
+    private var width = viewport.worldWidth
+    private var height = viewport.worldHeight
 
     // Initialize first circle centered on canvas
     private var c1 = circlesPool.obtain().also {
