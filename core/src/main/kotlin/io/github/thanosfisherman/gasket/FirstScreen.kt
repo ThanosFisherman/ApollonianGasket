@@ -28,7 +28,7 @@ class FirstScreen(private val game: Game) : KtxScreen {
     private val shape = ShapeRenderer()
 
     private val fps = FrameRate()
-    private val gasketPool: Pool<Gasket> = pool(30) { Gasket(gameViewport.worldWidth, gameViewport.worldHeight) }
+    private val gasketPool: Pool<Gasket> = pool(30) { Gasket(gameViewport.worldWidth, gameViewport.worldHeight).init() }
     lateinit var gasket: Gasket
 
     override fun show() {

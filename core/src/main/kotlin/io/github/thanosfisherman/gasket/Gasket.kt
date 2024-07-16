@@ -26,53 +26,25 @@ class Gasket(private var width: Float, private var height: Float) {
     private var sinceChange = 0f
 
     // Initialize first circle centered on canvas
-    private var c1 = circlesPool.obtain().also {
-        it.init(
-            width / 2,
-            height / 2,
-            -1 / (width / 2),
-            colorRandomizer.randomColor(),
-            coneSegments,
-            isConeShape
-        )
-    }
+    // Second circle positioned randomly within the first
+    // Third circle also positioned relative to the first
+    private lateinit var c1: Circle; private lateinit var c2: Circle; private lateinit var c3: Circle
 
-    private var r2 = randomFloatRange(100f, c1.radius / 2)
+    private var r2 = 0f; private var r3 = 0f
 
     // Generate a random angle between 0 and 2*PI
-    private var randomAngleRad: Float = randomFloatRange(0f, 2 * PI)
+    private var randomAngleRad: Float = 0f
 
     // Convert the angle to a unit vector
-    private var v = vec2(MathUtils.cos(randomAngleRad), MathUtils.sin(randomAngleRad))
-        .setLength(c1.radius - r2)
-
-    // Second circle positioned randomly within the first
-    private var c2 = circlesPool.obtain().also {
-        it.init(width / 2 + v.x, height / 2 + v.y, 1 / r2, colorRandomizer.randomColor(), coneSegments, isConeShape)
-    }
-
-    private var r3 = v.len()
-    private var v2 = Vector2(v).rotateRad(PI).setLength(c1.radius - r3)
-
-    // Third circle also positioned relative to the first
-    private var c3 = circlesPool.obtain().also {
-        it.init(width / 2 + v2.x, height / 2 + v2.y, 1 / r3, colorRandomizer.randomColor(), coneSegments, isConeShape)
-    }
+    private var v = Vector2(); var v2 = Vector2()
 
     // All circles in the gasket
-    private var allCircles = GdxArray<Circle>(false, 64).apply {
-        add(c1)
-        add(c2)
-        add(c3)
-    }
+    private var allCircles = GdxArray<Circle>(false, 64)
 
     // Queue for circles to process for next generation
-    private var queue = GdxArray<Triplet>(false, 64).apply {
-        // Initial triplet for generating next generation of circles
-        add(Triplet(c1, c2, c3))
-    }
+    private var queue = GdxArray<Triplet>(false, 64)
 
-    fun init() {
+    fun init(): Gasket {
         coneSegments = intArrayOf(4, 8, 20, 50).random()
         isConeShape = RandomXS128().nextInt(3) == 0
         colorRandomizer = ColorRandomizer()
@@ -97,7 +69,7 @@ class Gasket(private var width: Float, private var height: Float) {
         randomAngleRad = randomFloatRange(0f, 2 * PI)
 
         // Convert the angle to a unit vector
-        v = vec2(MathUtils.cos(randomAngleRad), MathUtils.sin(randomAngleRad))
+        v.set(MathUtils.cos(randomAngleRad), MathUtils.sin(randomAngleRad))
             .setLength(c1.radius - r2)
 
         // Second circle positioned randomly within the first
@@ -113,7 +85,7 @@ class Gasket(private var width: Float, private var height: Float) {
         }
 
         r3 = v.len()
-        v2 = Vector2(v).rotateRad(PI).setLength(c1.radius - r3)
+        v2.set(v).rotateRad(PI).setLength(c1.radius - r3)
 
         // Third circle also positioned relative to the first
         c3 = circlesPool.obtain().also {
@@ -139,6 +111,8 @@ class Gasket(private var width: Float, private var height: Float) {
             // Initial triplet for generating next generation of circles
             add(Triplet(c1, c2, c3))
         }
+
+        return this
     }
 
     fun draw(shape: ShapeRenderer) {
