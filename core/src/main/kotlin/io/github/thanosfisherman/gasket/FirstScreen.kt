@@ -2,7 +2,13 @@ package io.github.thanosfisherman.gasket
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input.Keys
+import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.utils.Pool
+import com.badlogic.gdx.utils.viewport.FitViewport
+import com.badlogic.gdx.utils.viewport.ScreenViewport
+import com.badlogic.gdx.utils.viewport.Viewport
 import ktx.app.KtxInputAdapter
 import ktx.app.KtxScreen
 import ktx.app.clearScreen
@@ -15,8 +21,14 @@ class FirstScreen(private val game: Game) : KtxScreen {
     //private val camera = OrthographicCamera().apply { setToOrtho(false, 800f, 800f) }
 
     //private val vector = vec3(Gdx.input.x.toFloat(), Gdx.input.y.toFloat())
+    private val gameViewport = FitViewport(900f, 900f)
+    private val uiViewport = ScreenViewport()
+
+    private val batch = SpriteBatch()
+    private val shape = ShapeRenderer()
+
     private val fps = FrameRate()
-    private val gasketPool: Pool<Gasket> = pool(30) { Gasket(game.viewport) }
+    private val gasketPool: Pool<Gasket> = pool(30) { Gasket(gameViewport.worldWidth, gameViewport.worldHeight) }
     lateinit var gasket: Gasket
 
     override fun show() {
@@ -49,6 +61,7 @@ class FirstScreen(private val game: Game) : KtxScreen {
 
     override fun render(delta: Float) {
         clearScreen(red = 0f, green = 0f, blue = 0f)
+
         fps.update()
 //        vector.set(Gdx.input.x.toFloat(), Gdx.input.y.toFloat(), 0f)
 //        camera.unproject(vector)
@@ -57,18 +70,32 @@ class FirstScreen(private val game: Game) : KtxScreen {
         if (Gdx.input.isKeyPressed(Keys.ESCAPE))
             Gdx.app.exit()
 
-        gasket.draw()
-        fps.render()
+        Gdx.gl.glLineWidth(1.64f)
+
+        gameViewport.apply()
+        shape.projectionMatrix = gameViewport.camera.combined
+
+        shape.begin(ShapeRenderer.ShapeType.Line)
+        gasket.draw(shape)
+        shape.color = Color.RED
+        shape.end()
+
+        uiViewport.apply()
+        batch.projectionMatrix = uiViewport.camera.combined
+        batch.begin()
+        fps.render(batch)
+        batch.end()
     }
 
     override fun resize(width: Int, height: Int) {
-        fps.resize(width, height)
-        game.viewport.update(width, height, true)
+        gameViewport.update(width, height, true)
+        uiViewport.update(width, height, true)
     }
 
     override fun dispose() {
         gasket.dispose()
         fps.dispose()
+        shape.dispose()
         gasketPool.clear()
     }
 }
