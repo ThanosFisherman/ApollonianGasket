@@ -1,6 +1,7 @@
 package io.github.thanosfisherman.gasket
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.MathUtils.PI
 import com.badlogic.gdx.math.RandomXS128
@@ -16,16 +17,13 @@ import kotlin.math.abs
 // Tolerance for calculating tangency and overlap
 private const val epsilon = 1f
 
-class Gasket(viewport: Viewport) {
+class Gasket(private var width: Float, private var height: Float) {
     private var coneSegments = intArrayOf(4, 8, 20, 50).random()
     private var isConeShape = RandomXS128().nextInt(3) == 0
     private var colorRandomizer = ColorRandomizer()
-    private var circlesPool: Pool<Circle> = pool(1200) { Circle(viewport) }
+    private var circlesPool: Pool<Circle> = pool(1200) { Circle() }
     private var lastTimeCounted = TimeUtils.millis()
     private var sinceChange = 0f
-
-    private var width = viewport.worldWidth
-    private var height = viewport.worldHeight
 
     // Initialize first circle centered on canvas
     private var c1 = circlesPool.obtain().also {
@@ -143,7 +141,7 @@ class Gasket(viewport: Viewport) {
         }
     }
 
-    fun draw() {
+    fun draw(shape: ShapeRenderer) {
 
         val delta: Long = TimeUtils.millis() - lastTimeCounted
         lastTimeCounted = TimeUtils.millis()
@@ -154,7 +152,7 @@ class Gasket(viewport: Viewport) {
             nextGeneration()
         }
         for (c in allCircles) {
-            c.draw()
+            c.draw(shape)
         }
     }
 
@@ -188,7 +186,6 @@ class Gasket(viewport: Viewport) {
     fun dispose() {
         circlesPool.clear()
         allCircles.clear()
-        Circle.dispose()
     }
 
     // Determine if two circles are tangent to each other

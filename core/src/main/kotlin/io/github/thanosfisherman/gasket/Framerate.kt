@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.utils.Disposable
 import com.badlogic.gdx.utils.TimeUtils
-import com.badlogic.gdx.utils.viewport.ScreenViewport
-import com.badlogic.gdx.utils.viewport.Viewport
 import ktx.assets.disposeSafely
 
 
@@ -17,8 +15,6 @@ class FrameRate : Disposable {
     private var sinceChange = 0f
     private var frameRate: Float
     private val font: BitmapFont
-    private val batch: SpriteBatch
-    private val viewport: Viewport = ScreenViewport()
 
 
     init {
@@ -26,12 +22,6 @@ class FrameRate : Disposable {
         frameRate = Gdx.graphics.framesPerSecond.toFloat()
         font = BitmapFont()
         font.region.texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest)
-        batch = SpriteBatch()
-    }
-
-    fun resize(screenWidth: Int, screenHeight: Int) {
-        viewport.update(screenWidth, screenHeight, true)
-        batch.projectionMatrix = viewport.camera.combined
     }
 
     fun update() {
@@ -47,17 +37,13 @@ class FrameRate : Disposable {
         }
     }
 
-    fun render() {
+    fun render(batch: SpriteBatch) {
         if (!isRendered) return
 
-        viewport.apply(true)
-        batch.begin()
-        font.draw(batch, frameRate.toInt().toString() + " fps", 4f, viewport.worldHeight - 4f)
-        batch.end()
+        font.draw(batch, frameRate.toInt().toString() + " fps", 0f, 16f)
     }
 
     override fun dispose() {
         font.disposeSafely()
-        batch.disposeSafely()
     }
 }
