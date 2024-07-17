@@ -117,16 +117,16 @@ class Gasket(private var width: Float, private var height: Float) : Pool.Poolabl
         }
     }
 
-    fun draw(shape: ShapeRenderer) {
-
-        val delta: Long = TimeUtils.millis() - lastTimeCounted
-        lastTimeCounted = TimeUtils.millis()
-
+    fun update(delta: Float) {
         sinceChange += delta
-        if (sinceChange >= 1) {
+
+        if (sinceChange >= 1f) {
             sinceChange = 0f
             nextGeneration()
         }
+    }
+
+    fun draw(shape: ShapeRenderer) {
         for (c in allCircles) {
             c.draw(shape)
         }

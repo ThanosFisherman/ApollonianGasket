@@ -24,14 +24,11 @@ class FrameRate : Disposable {
         font.region.texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest)
     }
 
-    fun update() {
+    fun update(delta: Float) {
         if (!isRendered) return
 
-        val delta: Long = TimeUtils.timeSinceMillis(lastTimeCounted)
-        lastTimeCounted = TimeUtils.millis()
-
-        sinceChange += delta.toFloat()
-        if (sinceChange >= 1000) {
+        sinceChange += delta
+        if (sinceChange >= 1f) {
             sinceChange = 0f
             frameRate = Gdx.graphics.framesPerSecond.toFloat()
         }

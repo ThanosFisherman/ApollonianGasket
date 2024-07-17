@@ -60,7 +60,9 @@ class FirstScreen(private val game: Game) : KtxScreen {
     override fun render(delta: Float) {
         clearScreen(red = 0f, green = 0f, blue = 0f)
 
-        fps.update()
+        gasket.update(delta)
+        fps.update(delta)
+
 //        vector.set(Gdx.input.x.toFloat(), Gdx.input.y.toFloat(), 0f)
 //        camera.unproject(vector)
 //        Gdx.graphics.setTitle("DEBUG - X: ${vector.x} Y: ${vector.y}")
