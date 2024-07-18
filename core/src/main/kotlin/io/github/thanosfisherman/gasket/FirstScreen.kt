@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.utils.Pool
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.ScreenViewport
-import com.badlogic.gdx.utils.viewport.Viewport
 import ktx.app.KtxInputAdapter
 import ktx.app.KtxScreen
 import ktx.app.clearScreen
@@ -83,7 +82,7 @@ class FirstScreen(private val game: Game) : KtxScreen {
         uiViewport.apply()
         batch.projectionMatrix = uiViewport.camera.combined
         batch.begin()
-        fps.render(batch)
+        fps.render(batch, height = uiViewport.worldHeight)
         batch.end()
     }
 

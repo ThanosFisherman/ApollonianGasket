@@ -5,12 +5,10 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.utils.Disposable
-import com.badlogic.gdx.utils.TimeUtils
 import ktx.assets.disposeSafely
 
 
 class FrameRate : Disposable {
-    private var lastTimeCounted: Long
     var isRendered = false
     private var sinceChange = 0f
     private var frameRate: Float
@@ -18,7 +16,6 @@ class FrameRate : Disposable {
 
 
     init {
-        lastTimeCounted = TimeUtils.millis()
         frameRate = Gdx.graphics.framesPerSecond.toFloat()
         font = BitmapFont()
         font.region.texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest)
@@ -34,10 +31,10 @@ class FrameRate : Disposable {
         }
     }
 
-    fun render(batch: SpriteBatch) {
+    fun render(batch: SpriteBatch, width: Float = 0f, height: Float = 16f) {
         if (!isRendered) return
 
-        font.draw(batch, frameRate.toInt().toString() + " fps", 0f, 16f)
+        font.draw(batch, frameRate.toInt().toString() + " fps", width, height)
     }
 
     override fun dispose() {

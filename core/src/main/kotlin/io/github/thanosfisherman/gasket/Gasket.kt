@@ -1,42 +1,41 @@
 package io.github.thanosfisherman.gasket
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.MathUtils.PI
 import com.badlogic.gdx.math.RandomXS128
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Pool
-import com.badlogic.gdx.utils.TimeUtils
-import com.badlogic.gdx.utils.viewport.Viewport
 import ktx.assets.pool
 import ktx.collections.GdxArray
-import ktx.math.vec2
 import kotlin.math.abs
 
 // Tolerance for calculating tangency and overlap
 private const val epsilon = 1f
 
-class Gasket(private var width: Float, private var height: Float) : Pool.Poolable {
+class Gasket(private val width: Float, private val height: Float) : Pool.Poolable {
     private var coneSegments = intArrayOf(4, 8, 20, 50).random()
     private var isConeShape = RandomXS128().nextInt(3) == 0
     private var colorRandomizer = ColorRandomizer()
     private var circlesPool: Pool<Circle> = pool(1200) { Circle() }
-    private var lastTimeCounted = TimeUtils.millis()
     private var sinceChange = 0f
 
     // Initialize first circle centered on canvas
     // Second circle positioned randomly within the first
     // Third circle also positioned relative to the first
-    private lateinit var c1: Circle; private lateinit var c2: Circle; private lateinit var c3: Circle
+    private lateinit var c1: Circle;
+    private lateinit var c2: Circle;
+    private lateinit var c3: Circle
 
-    private var r2 = 0f; private var r3 = 0f
+    private var r2 = 0f;
+    private var r3 = 0f
 
     // Generate a random angle between 0 and 2*PI
     private var randomAngleRad: Float = 0f
 
     // Convert the angle to a unit vector
-    private var v = Vector2(); var v2 = Vector2()
+    private var v = Vector2()
+    private var v2 = Vector2()
 
     // All circles in the gasket
     private var allCircles = GdxArray<Circle>(false, 64)
@@ -120,7 +119,7 @@ class Gasket(private var width: Float, private var height: Float) : Pool.Poolabl
     fun update(delta: Float) {
         sinceChange += delta
 
-        if (sinceChange >= 1f) {
+        if (sinceChange >= 0f) {
             sinceChange = 0f
             nextGeneration()
         }
