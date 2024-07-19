@@ -3,6 +3,8 @@ import org.gradle.api.file.DuplicatesStrategy
 import org.gradle.api.tasks.Copy
 import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.JavaExec
+import org.gradle.api.tasks.bundling.Tar
+import org.gradle.api.tasks.bundling.Zip
 import org.gradle.jvm.tasks.Jar
 import org.gradle.kotlin.dsl.*
 import java.io.File
@@ -19,6 +21,13 @@ fun Project.registerDesktopTasks(mainClass: String) {
         // if (os.contains("mac")) jvmArgs("-XstartOnFirstThread")
         // If you encounter issues with the 'lwjgl3:run' task on macOS specifically, try uncommenting the above line, and
         // regardless, please report it via the gdx-liftoff issue tracker or just mention it on the libGDX Discord.
+    }
+
+    tasks.getByName<Tar>("distTar") {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
+    tasks.getByName<Zip>("distZip") {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     }
 
     tasks.getByName<Jar>("jar") {
