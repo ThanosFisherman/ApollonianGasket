@@ -28,5 +28,5 @@ fun main() {
             setBackBufferConfig(8,8,8,8,16,8,4)
         }
 
-    Lwjgl3Application(Game(), config)
+    Lwjgl3Application(Game(Tone()), config)
 }

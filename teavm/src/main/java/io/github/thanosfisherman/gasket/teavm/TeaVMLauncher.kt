@@ -4,7 +4,7 @@ package io.github.thanosfisherman.gasket.teavm
 
 import com.github.xpenatan.gdx.backends.teavm.TeaApplication
 import com.github.xpenatan.gdx.backends.teavm.TeaApplicationConfiguration
-import io.github.thanosfisherman.gasket.Game.Companion.create
+import io.github.thanosfisherman.gasket.Game
 
 
 /**
@@ -25,6 +25,6 @@ object TeaVMLauncher {
             height = 0
         }
 
-        TeaApplication(create(), config)
+        TeaApplication(Game(ToneJs()), config)
     }
 }

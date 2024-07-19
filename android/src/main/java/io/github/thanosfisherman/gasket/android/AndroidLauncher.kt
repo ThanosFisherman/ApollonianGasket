@@ -11,6 +11,6 @@ class AndroidLauncher : AndroidApplication() {
         val config = AndroidApplicationConfiguration().apply {
             // Configure your application here.
         }
-        initialize(Game(), config)
+        initialize(Game(Tone()), config)
     }
 }
