@@ -5,6 +5,7 @@ package io.github.thanosfisherman.gasket.teavm
 import com.github.xpenatan.gdx.backends.teavm.TeaApplication
 import com.github.xpenatan.gdx.backends.teavm.TeaApplicationConfiguration
 import io.github.thanosfisherman.gasket.Game
+import io.github.thanosfisherman.gasket.teavm.tone.ToneJs
 
 
 /**

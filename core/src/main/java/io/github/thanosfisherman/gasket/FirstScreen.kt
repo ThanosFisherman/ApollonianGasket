@@ -12,8 +12,9 @@ import ktx.app.KtxInputAdapter
 import ktx.app.KtxScreen
 import ktx.app.clearScreen
 import ktx.assets.pool
+import ktx.log.logger
 
-//private val logger = logger<FirstScreen>()
+private val logger = logger<FirstScreen>()
 
 class FirstScreen(private val game: Game) : KtxScreen {
 
@@ -51,6 +52,9 @@ class FirstScreen(private val game: Game) : KtxScreen {
             override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
                 gasketPool.free(gasket)
                 gasket = gasketPool.obtain()
+                logger.debug { "Tone state " + game.realTimeSynth.state() }
+                game.realTimeSynth.start()
+                game.realTimeSynth.play()
                 return true
             }
         }

@@ -60,6 +60,7 @@ object Dependencies {
     object TeaVMDependency {
 
         const val gdxTeaVM = "com.github.xpenatan.gdx-teavm:backend-teavm:${Versions.Libgdx.gdxTeaVMVersion}"
+        const val gdxTeaVMAssetLoader = "com.github.xpenatan.gdx-teavm:asset-loader:${Versions.Libgdx.gdxTeaVMVersion}"
 //        const val gdxTeaVMFreeType =
 //            "com.github.xpenatan.gdx-teavm:gdx-freetype-teavm:${Versions.Libgdx.gdxTeaVMVersion}"
 //        const val box2d = "com.badlogicgames.gdx:gdx-box2d-gwt:${Versions.Libgdx.gdxVersion}"

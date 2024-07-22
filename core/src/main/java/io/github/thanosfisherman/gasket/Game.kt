@@ -8,15 +8,13 @@ import ktx.log.logger
 
 private val logger = logger<Game>()
 
-class Game(val synth: Synth) : KtxGame<KtxScreen>() {
-
+class Game(val realTimeSynth: RealTimeSynth) : KtxGame<KtxScreen>() {
 
     override fun create() {
         Gdx.app.logLevel = Application.LOG_DEBUG
-        synth.message("OMG I CAN'T BELIEVE THIS SHIT WORKS")
+        realTimeSynth.loadLibrary()
         addScreen(FirstScreen(this))
         setScreen<FirstScreen>()
     }
-
 }
 
