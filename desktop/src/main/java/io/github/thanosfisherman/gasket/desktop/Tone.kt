@@ -17,7 +17,7 @@ class Tone: RealTimeSynth {
         return "undefined"
     }
 
-    override fun play() {
+    override fun play(note: String, duration: String) {
 
     }
 }

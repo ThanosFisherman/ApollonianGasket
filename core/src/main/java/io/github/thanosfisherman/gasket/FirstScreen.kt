@@ -54,7 +54,10 @@ class FirstScreen(private val game: Game) : KtxScreen {
                 gasket = gasketPool.obtain()
                 logger.debug { "Tone state " + game.realTimeSynth.state() }
                 game.realTimeSynth.start()
-                game.realTimeSynth.play()
+                game.realTimeSynth.play("C4","8n")
+                game.realTimeSynth.play("D4","+8n")
+                game.realTimeSynth.play("E4","+8n")
+                game.realTimeSynth.play("F4","+8n")
                 return true
             }
         }

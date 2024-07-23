@@ -5,5 +5,5 @@ interface RealTimeSynth {
     fun loadLibrary()
     fun start()
     fun state(): String
-    fun play()
+    fun play(note: String, duration: String)
 }

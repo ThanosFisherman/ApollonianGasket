@@ -9,6 +9,10 @@ object Tone {
     external fun state(): String
 
     @JvmStatic
+    @JSBody(params = ["bpmVal"], script = "Tone.getTransport().bpm.value = bpmVal;")
+    external fun setBPM(bpmVal: Int)
+
+    @JvmStatic
     @JSBody(script = "return new Tone.start();")
     external fun start(): JSPromise<Void>
 
