@@ -1,10 +1,8 @@
 package io.github.thanosfisherman.gasket
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Vector2
-import ktx.graphics.center
 
 data class Circle(
     var x: Float = 0f,
@@ -34,6 +32,7 @@ data class Circle(
         this.isCone = isCone
         this.center = Complex(x, y)
         this.radius = kotlin.math.abs(1 / bend)
+        //println("BEND ${(bend)} RADIUS $radius")
     }
 
     fun config(color: Color, isCone: Boolean, segments: Int) {
@@ -41,7 +40,6 @@ data class Circle(
         this.segments = segments
         this.isCone = isCone
     }
-
 
     fun draw(shape: ShapeRenderer, x: Float = this.center.real, y: Float = this.center.img, color: Color = this.color) {
 

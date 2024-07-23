@@ -2,7 +2,6 @@ package io.github.thanosfisherman.gasket
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input.Keys
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.utils.Pool
@@ -69,6 +68,7 @@ class FirstScreen(private val game: Game) : KtxScreen {
             synth.play((55 * i).toString(), "8n", now + (i * 0.08f))
         }
     }
+
     override fun render(delta: Float) {
         clearScreen(red = 0f, green = 0f, blue = 0f)
 
@@ -89,7 +89,6 @@ class FirstScreen(private val game: Game) : KtxScreen {
 
         shape.begin(ShapeRenderer.ShapeType.Line)
         gasket.draw(shape)
-        shape.color = Color.RED
         shape.end()
 
         uiViewport.apply()
