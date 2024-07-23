@@ -1,9 +1,13 @@
 package io.github.thanosfisherman.gasket
 
 interface RealTimeSynth {
-    fun message(message: String)
+    val now: Float
+    val state: String
+    val isLibraryLoaded: Boolean
+
     fun loadLibrary()
+    fun createMonoSynth()
+    fun createPolySynth()
     fun start()
-    fun state(): String
-    fun play(note: String, duration: String)
+    fun play(note: String, duration: String, time: Float, velocity: Float = 1.0f)
 }

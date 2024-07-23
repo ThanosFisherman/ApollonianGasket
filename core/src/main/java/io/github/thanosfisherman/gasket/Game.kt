@@ -11,6 +11,7 @@ private val logger = logger<Game>()
 class Game(val realTimeSynth: RealTimeSynth) : KtxGame<KtxScreen>() {
 
     override fun create() {
+        super.create()
         Gdx.app.logLevel = Application.LOG_DEBUG
         realTimeSynth.loadLibrary()
         addScreen(FirstScreen(this))

@@ -18,6 +18,7 @@ private val logger = logger<FirstScreen>()
 
 class FirstScreen(private val game: Game) : KtxScreen {
 
+    private val synth = game.realTimeSynth
     //private val camera = OrthographicCamera().apply { setToOrtho(false, 800f, 800f) }
 
     //private val vector = vec3(Gdx.input.x.toFloat(), Gdx.input.y.toFloat())
@@ -34,6 +35,8 @@ class FirstScreen(private val game: Game) : KtxScreen {
     override fun show() {
 
         gasket = gasketPool.obtain()
+
+        synth.createPolySynth()
 
         Gdx.input.inputProcessor = object : KtxInputAdapter {
 
@@ -52,17 +55,20 @@ class FirstScreen(private val game: Game) : KtxScreen {
             override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
                 gasketPool.free(gasket)
                 gasket = gasketPool.obtain()
-                logger.debug { "Tone state " + game.realTimeSynth.state() }
-                game.realTimeSynth.start()
-                game.realTimeSynth.play("C4","8n")
-                game.realTimeSynth.play("D4","+8n")
-                game.realTimeSynth.play("E4","+8n")
-                game.realTimeSynth.play("F4","+8n")
+                playSynth()
                 return true
             }
         }
     }
 
+    fun playSynth() {
+        val now = synth.now
+        synth.start()
+        for (i in 0..16) {
+
+            synth.play((55 * i).toString(), "8n", now + (i * 0.08f))
+        }
+    }
     override fun render(delta: Float) {
         clearScreen(red = 0f, green = 0f, blue = 0f)
 
