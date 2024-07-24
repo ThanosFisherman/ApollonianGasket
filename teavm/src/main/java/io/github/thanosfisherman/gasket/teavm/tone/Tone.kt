@@ -18,6 +18,14 @@ object Tone {
     external fun start(): JSPromise<Void>
 
     @JvmStatic
+    @JSBody(params = ["bpmVal"], script = "Tone.getTransport().bpm.value = bpmVal;")
+    external fun setBpm(value: Int): JSPromise<Void>
+
+    @JvmStatic
+    @JSBody(script = "return Tone.getTransport().bpm.value;")
+    external fun getBpm(): Int
+
+    @JvmStatic
     @JSBody(script = "return new Tone.Synth().toDestination();")
     external fun createSynth(): Synth
 
@@ -33,8 +41,8 @@ object Tone {
                          envelope: {
                            attack: 0.001,
                            decay: 2,
-                           sustain: 0.2,
-                           release: 4
+                           sustain: 0.4,
+                           release: 1.6
                          },
                          modulation: {
                            type: "square"
@@ -42,8 +50,8 @@ object Tone {
                          modulationEnvelope: {
                            attack: 0.002,
                            decay: 0.2,
-                           sustain: 0,
-                           release: 0.2
+                           sustain: 0.1,
+                           release: 0.4
                          }
                       }).toDestination();
         """
