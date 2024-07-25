@@ -12,6 +12,7 @@ import ktx.app.KtxScreen
 import ktx.app.clearScreen
 import ktx.assets.pool
 import ktx.log.logger
+import kotlin.math.absoluteValue
 
 private val logger = logger<FirstScreen>()
 
@@ -53,8 +54,8 @@ class FirstScreen(private val game: Game) : KtxScreen {
 
             override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
                 gasketPool.free(gasket)
+                synth.start()
                 gasket = gasketPool.obtain()
-                playSynth()
                 return true
             }
         }
@@ -72,7 +73,16 @@ class FirstScreen(private val game: Game) : KtxScreen {
     override fun render(delta: Float) {
         clearScreen(red = 0f, green = 0f, blue = 0f)
 
-        gasket.update(delta)
+        gasket.update(delta) { circles: List<Circle> ->
+            if (synth.state == "running") {
+                val now = synth.now
+                logger.debug { "SIZE " + circles.size }
+                circles.forEachIndexed { index, circle ->
+                    val note = ((circle.bend * 10000) * (1..4).random()).absoluteValue
+                    synth.play("%.3f".format(note), "16n", now + (index * 0.08f))
+                }
+            }
+        }
         fps.update(delta)
 
 //        vector.set(Gdx.input.x.toFloat(), Gdx.input.y.toFloat(), 0f)

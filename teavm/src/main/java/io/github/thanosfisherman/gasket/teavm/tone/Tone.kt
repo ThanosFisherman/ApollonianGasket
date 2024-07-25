@@ -42,7 +42,7 @@ object Tone {
                            attack: 0.001,
                            decay: 2,
                            sustain: 0.4,
-                           release: 1.6
+                           release: 0.7
                          },
                          modulation: {
                            type: "square"

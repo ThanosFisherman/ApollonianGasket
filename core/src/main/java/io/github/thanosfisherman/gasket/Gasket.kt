@@ -8,10 +8,12 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Pool
 import ktx.assets.pool
 import ktx.collections.GdxArray
+import ktx.log.logger
 import kotlin.math.abs
 
 // Tolerance for calculating tangency and overlap
 private const val epsilon = 1f
+private val logger = logger<Gasket>()
 
 class Gasket(private val width: Float, private val height: Float) : Pool.Poolable {
     private var coneSegments = intArrayOf(4, 8, 20, 50).random()
@@ -19,6 +21,7 @@ class Gasket(private val width: Float, private val height: Float) : Pool.Poolabl
     private var colorRandomizer = ColorRandomizer()
     private var circlesPool: Pool<Circle> = pool(1200) { Circle() }
     private var sinceChange = 0f
+    private var finishedCounter = 0
 
     // Initialize first circle centered on canvas
     // Second circle positioned randomly within the first
@@ -48,6 +51,7 @@ class Gasket(private val width: Float, private val height: Float) : Pool.Poolabl
     }
 
     override fun reset() {
+        finishedCounter = 0
         coneSegments = intArrayOf(4, 8, 20, 50).random()
         isConeShape = RandomXS128().nextInt(3) == 0
         colorRandomizer = ColorRandomizer()
@@ -116,12 +120,28 @@ class Gasket(private val width: Float, private val height: Float) : Pool.Poolabl
         }
     }
 
-    fun update(delta: Float) {
-        sinceChange += delta
+    private fun isSimFinished(lenBefore: Int): Boolean {
+        val lenAfter = allCircles.size
+        return lenBefore == lenAfter
+    }
 
+    fun update(delta: Float, soundOn: (circles: List<Circle>) -> Unit) {
+        sinceChange += delta
+        if (finishedCounter >= 2)
+            return
+        if (finishedCounter >= 1) {
+            val distinct: List<Circle> = allCircles.toList().filter { it.radius >= 10 }.distinctBy { it.radius }.shuffled()
+            soundOn(distinct)
+            finishedCounter++
+            return
+        }
+        val lenBefore = allCircles.size
         if (sinceChange >= 0f) {
             sinceChange = 0f
             nextGeneration()
+            if (isSimFinished(lenBefore)) {
+                finishedCounter++
+            }
         }
     }
 
