@@ -10,6 +10,7 @@ import ktx.assets.pool
 import ktx.collections.GdxArray
 import ktx.log.logger
 import kotlin.math.abs
+import kotlin.math.absoluteValue
 
 // Tolerance for calculating tangency and overlap
 private const val epsilon = 1f
@@ -125,13 +126,22 @@ class Gasket(private val width: Float, private val height: Float) : Pool.Poolabl
         return lenBefore == lenAfter
     }
 
-    fun update(delta: Float, soundOn: (circles: List<Circle>) -> Unit) {
+    fun update(delta: Float, soundOn: (freq: String, time: Float) -> Unit) {
         sinceChange += delta
         if (finishedCounter >= 2)
             return
         if (finishedCounter >= 1) {
-            val distinct: List<Circle> = allCircles.toList().filter { it.radius >= 10 }.distinctBy { it.radius }.shuffled()
-            soundOn(distinct)
+            val distinct: List<Circle> =
+                allCircles.toList().filter { it.radius >= 12 }.distinctBy { it.radius }.shuffled()
+            val k0 = distinct.minBy { it.bend.absoluteValue }.bend.absoluteValue
+            val f0 = 70
+
+            distinct.forEachIndexed { i, c ->
+                val k1 = c.bend.absoluteValue
+                val f1 = f0 * (k1 / k0)
+                soundOn(f1.toString(), i * 0.055f)
+            }
+         
             finishedCounter++
             return
         }

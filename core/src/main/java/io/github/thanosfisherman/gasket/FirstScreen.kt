@@ -12,7 +12,6 @@ import ktx.app.KtxScreen
 import ktx.app.clearScreen
 import ktx.assets.pool
 import ktx.log.logger
-import kotlin.math.absoluteValue
 
 private val logger = logger<FirstScreen>()
 
@@ -61,26 +60,13 @@ class FirstScreen(private val game: Game) : KtxScreen {
         }
     }
 
-    fun playSynth() {
-        val now = synth.now
-        synth.start()
-        for (i in 0..16) {
-
-            synth.play((55 * i).toString(), "8n", now + (i * 0.08f))
-        }
-    }
-
     override fun render(delta: Float) {
         clearScreen(red = 0f, green = 0f, blue = 0f)
 
-        gasket.update(delta) { circles: List<Circle> ->
+        gasket.update(delta) { freq: String, time: Float ->
             if (synth.state == "running") {
                 val now = synth.now
-                logger.debug { "SIZE " + circles.size }
-                circles.forEachIndexed { index, circle ->
-                    val note = ((circle.bend * 10000) * (1..4).random()).absoluteValue
-                    synth.play("%.3f".format(note), "16n", now + (index * 0.08f))
-                }
+                synth.play(freq, "16n", now + time, 0.8f)
             }
         }
         fps.update(delta)
