@@ -12,7 +12,7 @@ class Game(val realTimeSynth: RealTimeSynth) : KtxGame<KtxScreen>() {
 
     override fun create() {
         super.create()
-        Gdx.app.logLevel = Application.LOG_DEBUG
+        Gdx.app.logLevel = Application.LOG_NONE
         realTimeSynth.loadLibrary()
         addScreen(FirstScreen(this))
         setScreen<FirstScreen>()

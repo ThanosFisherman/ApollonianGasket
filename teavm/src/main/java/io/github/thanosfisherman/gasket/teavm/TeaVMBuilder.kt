@@ -13,6 +13,9 @@ fun main() {
     val teaBuildConfiguration = TeaBuildConfiguration()
     teaBuildConfiguration.assetsPath.add(AssetFileHandle("../assets"))
     teaBuildConfiguration.webappPath = File("build/dist").getCanonicalPath()
+    teaBuildConfiguration.htmlTitle = "Apollonian Gasket by Thanos!"
+    teaBuildConfiguration.htmlWidth = 900
+    teaBuildConfiguration.htmlHeight = 900
 
     // Register any extra classpath assets here:
     // teaBuildConfiguration.additionalAssetsClasspathFiles.add("io.github.thanosfisherman.gasket/asset.extension");
@@ -21,7 +24,7 @@ fun main() {
     // TeaReflectionSupplier.addReflectionClass("io.github.thanosfisherman.gasket.reflect");
     val tool = TeaBuilder.config(teaBuildConfiguration)
     tool.setObfuscated(true)
-    tool.optimizationLevel = TeaVMOptimizationLevel.FULL
+    tool.optimizationLevel = TeaVMOptimizationLevel.ADVANCED
     tool.mainClass = TeaVMLauncher::class.java.getName()
     TeaBuilder.build(tool)
 }
