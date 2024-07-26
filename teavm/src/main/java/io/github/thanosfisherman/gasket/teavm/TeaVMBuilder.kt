@@ -23,8 +23,8 @@ fun main() {
     // Register any classes or packages that require reflection here:
     // TeaReflectionSupplier.addReflectionClass("io.github.thanosfisherman.gasket.reflect");
     val tool = TeaBuilder.config(teaBuildConfiguration)
+    tool.optimizationLevel = TeaVMOptimizationLevel.FULL
     tool.setObfuscated(true)
-    tool.optimizationLevel = TeaVMOptimizationLevel.ADVANCED
     tool.mainClass = TeaVMLauncher::class.java.getName()
     TeaBuilder.build(tool)
 }
