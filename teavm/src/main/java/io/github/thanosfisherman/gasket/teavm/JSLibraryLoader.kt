@@ -27,9 +27,7 @@ class JSLibraryLoader {
         val instance: AssetLoader.AssetLoad = AssetLoader.getInstance()
 
         if (listener != null) {
-            instance.loadScript(true, libName, object : AssetLoaderListener<String>() {
-                override fun onProgress(amount: Double) {
-                }
+            instance.loadScript(true, libName, object : AssetLoaderListener<String> {
 
                 override fun onFailure(url: String) {
                     listener(false)
