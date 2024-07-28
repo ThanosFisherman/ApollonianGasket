@@ -35,7 +35,7 @@ class ToneJs : RealTimeSynth {
     override fun createPolySynth() {
         if (polySynth == null) {
             polySynth = Tone.createPolySynth()
-            polySynth?.maxPolyphony(200)
+            polySynth?.maxPolyphony(230)
             Tone.setBpm(300)
         }
     }
