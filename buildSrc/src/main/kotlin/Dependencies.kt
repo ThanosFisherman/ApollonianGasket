@@ -60,6 +60,7 @@ object Dependencies {
     object TeaVMDependency {
 
         const val gdxTeaVM = "com.github.xpenatan.gdx-teavm:backend-teavm:${Versions.Libgdx.gdxTeaVMVersion}"
+        const val gdxTeaVMAssetLoader = "com.github.xpenatan.gdx-teavm:asset-loader:${Versions.Libgdx.gdxTeaVMVersion}"
 //        const val gdxTeaVMFreeType =
 //            "com.github.xpenatan.gdx-teavm:gdx-freetype-teavm:${Versions.Libgdx.gdxTeaVMVersion}"
 //        const val box2d = "com.badlogicgames.gdx:gdx-box2d-gwt:${Versions.Libgdx.gdxVersion}"
@@ -194,8 +195,8 @@ object Dependencies {
 
     object GraalDesktop {
         const val lwjgl3Backend = "com.github.Berstanio.gdx-graalhelper:gdx-svmhelper-backend-lwjgl3:${Versions.Libgdx.graalVersion}"
-        const val controllersDesktop =
-            "com.github.Berstanio.gdx-graalhelper:gdx-svmhelper-extension-controllers-lwjgl3:${Versions.Libgdx.graalVersion}"
+//        const val controllersDesktop =
+//            "com.github.Berstanio.gdx-graalhelper:gdx-svmhelper-extension-controllers-lwjgl3:${Versions.Libgdx.graalVersion}"
 
         fun getAll() =
             GraalDesktop::class.memberProperties.filter { it.isConst }.map { it.getter.call().toString() }.toSet()

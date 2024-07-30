@@ -38,7 +38,7 @@ object Versions {
         const val gdxControllersVersion = "2.2.1"
         const val gdxControllerUtilsVersion = "2.3.0"
         const val ktxVersion = "1.12.1-rc1"
-        const val gdxTeaVMVersion = "1.0.0-b9"
+        const val gdxTeaVMVersion = "1.0.3"
         const val box2dlightsVersion = "1.5"
         const val aiVersion = "1.8.2"
         const val kryoVersion = "5.5.0"

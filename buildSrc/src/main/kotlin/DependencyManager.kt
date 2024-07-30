@@ -25,9 +25,9 @@ fun DependencyHandler.addTeaVMDependencies() {
 }
 
 fun DependencyHandler.addGraalDesktopDependencies() {
-    Dependencies.DesktopDependency.getAll().forEach { implementation(it) }
+    Dependencies.GraalDesktop.getAll().forEach { implementation(it) }
 }
 
 fun DependencyHandler.addGraalCoreDependencies() {
-    Dependencies.DesktopDependency.getAll().forEach { implementation(it) }
+    Dependencies.GraalCore.getAll().forEach { implementation(it) }
 }

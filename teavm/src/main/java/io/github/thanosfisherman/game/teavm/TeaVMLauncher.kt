@@ -19,6 +19,7 @@ object TeaVMLauncher {
     @JvmStatic
     fun main(args: Array<String>) {
         val config = TeaApplicationConfiguration("canvas").apply {
+            usePhysicalPixels = false
             antialiasing = true
         }
         // change these to both 0 to use all available space, or both -1 for the canvas size.
