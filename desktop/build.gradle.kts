@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "io.github.thanosfisherman.gasket.desktop"
-version = "1.1.3"
+version = "1.1.4"
 
 dependencies {
     addDesktopDependencies()
