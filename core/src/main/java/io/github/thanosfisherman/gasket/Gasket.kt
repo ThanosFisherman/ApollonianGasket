@@ -3,7 +3,6 @@ package io.github.thanosfisherman.gasket
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.MathUtils.PI
-import com.badlogic.gdx.math.RandomXS128
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Pool
 import ktx.assets.pool
@@ -18,7 +17,7 @@ private val logger = logger<Gasket>()
 
 class Gasket(private val width: Float, private val height: Float) : Pool.Poolable {
     private var coneSegments = intArrayOf(4, 8, 20, 50).random()
-    private var isConeShape = RandomXS128().nextInt(3) == 0
+    private var isConeShape = MathUtils.random.nextInt(3) == 0
     private var colorRandomizer = ColorRandomizer()
     private var circlesPool: Pool<Circle> = pool(1200) { Circle() }
     private var sinceChange = 0f
@@ -54,7 +53,7 @@ class Gasket(private val width: Float, private val height: Float) : Pool.Poolabl
     override fun reset() {
         finishedCounter = 0
         coneSegments = intArrayOf(4, 8, 20, 50).random()
-        isConeShape = RandomXS128().nextInt(3) == 0
+        isConeShape = MathUtils.random.nextInt(3) == 0
         colorRandomizer = ColorRandomizer()
 
         allCircles.forEach { circlesPool.free(it) }
@@ -71,10 +70,10 @@ class Gasket(private val width: Float, private val height: Float) : Pool.Poolabl
             )
         }
 
-        r2 = randomFloatRange(100f, c1.radius / 2)
+        r2 = MathUtils.random(100f, c1.radius / 2)
 
         // Generate a random angle between 0 and 2*PI
-        randomAngleRad = randomFloatRange(0f, 2 * PI)
+        randomAngleRad = MathUtils.random(0f, 2 * PI)
 
         // Convert the angle to a unit vector
         v.set(MathUtils.cos(randomAngleRad), MathUtils.sin(randomAngleRad))
@@ -141,7 +140,7 @@ class Gasket(private val width: Float, private val height: Float) : Pool.Poolabl
                 val f1 = f0 * (k1 / k0)
                 soundOn(f1.toString(), i * 0.055f)
             }
-         
+
             finishedCounter++
             return
         }
@@ -224,13 +223,6 @@ class Gasket(private val width: Float, private val height: Float) : Pool.Poolabl
         }
 
         return true
-    }
-
-    private fun randomFloatRange(min: Float, max: Float): Float {
-        require(min < max) { "max must be greater than min" }
-        val ran = RandomXS128()
-        val result = min + ran.nextFloat() * (max - min)
-        return result
     }
 }
 

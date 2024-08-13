@@ -5,8 +5,8 @@ object Versions {
 
     // region Common
 
-    const val kotlin = "2.0.0"
-    const val coroutines = "1.8.0"
+    const val kotlin = "2.0.10"
+    const val coroutines = "1.9.0-RC.2"
     const val kotlinxDateTime = "0.3.0"
     const val kotlinSerialization = "1.6.3"
     const val navigation = "2.5.3"
@@ -21,7 +21,7 @@ object Versions {
     }
 
     object Plugins {
-        const val agpVersion = "8.2.0" // 8.3.1
+        const val agpVersion = "8.5.2"
 
         const val desugaring = "1.2.2"
 
