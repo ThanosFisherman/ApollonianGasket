@@ -5,7 +5,7 @@ object Versions {
 
     // region Common
 
-    const val kotlin = "2.0.10"
+    const val kotlin = "2.0.20"
     const val coroutines = "1.9.0-RC.2"
     const val kotlinxDateTime = "0.3.0"
     const val kotlinSerialization = "1.6.3"
