@@ -54,6 +54,8 @@ object Versions {
         const val universalTweenVersion = "6.3.3"
         const val graalVersion = "2.0.1"
         const val ode4jVersion = "master-SNAPSHOT"
+        const val juniperVersion = "0.6.1"
+        const val juniperDigitalVersion = "0.4.8"
     }
 
 
