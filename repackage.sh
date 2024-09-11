@@ -41,11 +41,13 @@ fi
 
 # Define the directory path
 core_path="core/src/main/java/io/github/thanosfisherman"
+core_path_test="core/src/test/java/io/github/thanosfisherman"
 teavm_path="teavm/src/main/java/io/github/thanosfisherman"
 desktop_path="desktop/src/main/java/io/github/thanosfisherman"
 android_path="android/src/main/java/io/github/thanosfisherman"
 
 rename_dir "$core_path" "$1"
+rename_dir "$core_path_test" "$1"
 rename_dir "$teavm_path" "$1"
 rename_dir "$desktop_path" "$1"
 rename_dir "$android_path" "$1"
