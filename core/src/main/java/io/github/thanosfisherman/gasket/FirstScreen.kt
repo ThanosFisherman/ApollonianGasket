@@ -1,5 +1,6 @@
 package io.github.thanosfisherman.gasket
 
+import com.badlogic.gdx.Application
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input.Keys
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
@@ -28,6 +29,8 @@ class FirstScreen(private val game: Game) : KtxScreen {
     private val shape = ShapeRenderer()
 
     private val fps = FrameRate()
+    private val screenshot =
+        HighResScreenshot(shape, Gdx.graphics.backBufferWidth, Gdx.graphics.backBufferHeight)
     private val gasketPool: Pool<Gasket> = pool(30) { Gasket(gameViewport.worldWidth, gameViewport.worldHeight) }
     lateinit var gasket: Gasket
 
@@ -41,12 +44,21 @@ class FirstScreen(private val game: Game) : KtxScreen {
 
             override fun keyUp(keycode: Int): Boolean {
 
-                if (keycode == Keys.SPACE) {
-                    gasketPool.free(gasket)
-                    gasket = gasketPool.obtain()
-                }
-                if (keycode == Keys.F2) {
-                    fps.isRendered = !fps.isRendered
+                when (keycode) {
+                    Keys.SPACE -> {
+                        gasketPool.free(gasket)
+                        gasket = gasketPool.obtain()
+                    }
+
+                    Keys.F2 -> {
+                        fps.isRendered = !fps.isRendered
+                    }
+
+                    Keys.S -> {
+                        if (Gdx.app.type == Application.ApplicationType.Desktop) {
+                            screenshot.takeScreenshot()
+                        }
+                    }
                 }
                 return true
             }
