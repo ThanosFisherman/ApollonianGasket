@@ -17,6 +17,7 @@ fun main() {
             val windowSize = (displayMode.width * 0.75f) / 16f * 9f
             //setResizable(false)
             setWindowedMode(900, 900)
+            //setFullscreenMode(displayMode)
             setWindowIcon(*(arrayOf(128, 64, 32, 16).map { "libgdx$it.png" }.toTypedArray()))
             setTitle("Apollonian Gasket!")
             useVsync(true)
@@ -25,7 +26,7 @@ fun main() {
             //// If you remove the above line and set Vsync to false, you can get unlimited FPS, which can be
             //// useful for testing performance, but can also be very stressful to some hardware.
             //// You may also need to configure GPU drivers to fully disable Vsync; this can cause screen tearing.
-            setBackBufferConfig(8,8,8,8,16,8,4)
+            setBackBufferConfig(8,8,8,8,24,8,4)
         }
 
     Lwjgl3Application(Game(Tone()), config)
