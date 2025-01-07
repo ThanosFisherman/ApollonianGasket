@@ -6,8 +6,8 @@ object Versions {
 
     // region Common
 
-    const val kotlin = "2.0.20"
-    const val coroutines = "1.9.0-RC.2"
+    const val kotlin = "2.1.0"
+    const val coroutines = "1.10.1"
     const val kotlinxDateTime = "0.3.0"
     const val kotlinSerialization = "1.6.3"
     const val navigation = "2.5.3"
@@ -22,13 +22,13 @@ object Versions {
     }
 
     object Plugins {
-        const val agpVersion = "8.5.2"
+        const val agpVersion = "8.7.3"
 
-        const val desugaring = "1.2.2"
+        const val desugaring = "2.1.4"
 
         const val googlePlayServices = "4.3.10"
 
-        const val undercouch = "4.1.2"
+        const val undercouch = "5.6.0"
         const val grettyVersion = "3.1.2"
     }
 
@@ -38,7 +38,7 @@ object Versions {
         const val gdxControllersVersion = "2.2.1"
         const val gdxControllerUtilsVersion = "2.3.0"
         const val ktxVersion = "1.12.1-rc1"
-        const val gdxTeaVMVersion = "1.0.3"
+        const val gdxTeaVMVersion = "1.0.5"
         const val box2dlightsVersion = "1.5"
         const val aiVersion = "1.8.2"
         const val kryoVersion = "5.5.0"
@@ -47,15 +47,15 @@ object Versions {
         const val gdxGltfVersion = "2.1.0"
         const val digitalVersion = "0.4.4"
         const val funderbyVersion = "funderbyVersion"
-        const val jdkgdxdsVersion = "1.4.4"
+        const val jdkgdxdsVersion = "1.7.2"
         const val kryoJdkgdxdsVersion = "1.4.4.0"
         const val visUiVersion = "1.5.3"
         const val miniaudioVersion = "0.3"
         const val universalTweenVersion = "6.3.3"
         const val graalVersion = "2.0.1"
         const val ode4jVersion = "master-SNAPSHOT"
-        const val juniperVersion = "0.6.1"
-        const val juniperDigitalVersion = "0.4.8"
+        const val juniperVersion = "0.6.3"
+        const val juniperDigitalVersion = "0.5.4"
     }
 
 

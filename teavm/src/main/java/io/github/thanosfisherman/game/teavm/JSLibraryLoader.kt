@@ -1,11 +1,11 @@
 package io.github.thanosfisherman.game.teavm
 
+import com.github.xpenatan.gdx.backends.teavm.assetloader.AssetInstance
 import com.github.xpenatan.gdx.backends.teavm.assetloader.AssetLoader
 import com.github.xpenatan.gdx.backends.teavm.assetloader.AssetLoaderListener
 
 
 class JSLibraryLoader {
-
 
     fun load(libraryName: String) {
         loadInternal(libraryName, null)
@@ -25,10 +25,10 @@ class JSLibraryLoader {
             return
         }
         loadedLibraries.add(libName)
-        val instance: AssetLoader.AssetLoad = AssetLoader.getInstance()
+        val instance: AssetLoader = AssetInstance.getLoaderInstance()
 
         if (listener != null) {
-            instance.loadScript(true, libName, object : AssetLoaderListener<String> {
+            instance.loadScript(libName, object : AssetLoaderListener<String> {
 
                 override fun onFailure(url: String) {
                     listener(false)
@@ -39,7 +39,7 @@ class JSLibraryLoader {
                 }
             })
         } else {
-            instance.loadScript(false, libName, null)
+            instance.loadScript(libName, null)
         }
     }
 
