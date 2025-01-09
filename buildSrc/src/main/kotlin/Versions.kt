@@ -34,10 +34,10 @@ object Versions {
 
     object Libgdx {
         const val ashleyVersion = "1.7.4"
-        const val gdxVersion = "1.12.1"
+        const val gdxVersion = "1.13.1"
         const val gdxControllersVersion = "2.2.1"
         const val gdxControllerUtilsVersion = "2.3.0"
-        const val ktxVersion = "1.12.1-rc1"
+        const val ktxVersion = "1.12.1-rc2"
         const val gdxTeaVMVersion = "1.0.5"
         const val box2dlightsVersion = "1.5"
         const val aiVersion = "1.8.2"
