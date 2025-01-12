@@ -2,6 +2,7 @@ package io.github.thanosfisherman.gasket
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Vector2
 
 data class Circle(
@@ -40,18 +41,51 @@ data class Circle(
         this.segments = segments
         this.isCone = isCone
     }
-
+    val ran = MathUtils.random(1)
     fun draw(shape: ShapeRenderer, x: Float = this.center.real, y: Float = this.center.img, color: Color = this.color) {
 
         shape.color = color
+        //shape.triangle(x, y, x + 15, y, x+15 - ((x + 15 - x) / 2), y + 15)
 
-        if (isCone)
-            shape.cone(x, y, 0f, radius, 0f, segments)
+
+        if (ran < 1)
+            drawUpTriangle(x,y,radius,shape)
         else
-            shape.circle(x, y, radius, 200)
+            drawDownTriangle(x,y,radius,shape)
     }
 
     fun distance(other: Circle): Float {
         return Vector2.dst(x, y, other.x, other.y)
+    }
+
+
+// Function to draw an equilateral triangle
+private fun drawUpTriangle(x:Float, y:Float, sideLength:Float, shape: ShapeRenderer) {
+        val h = (kotlin.math.sqrt(3f) / 2) * sideLength; // Height of the triangle
+
+        // Calculate vertices
+        val x1 = x;
+        val y1 = y - h; // Top vertex (shifted upwards by height)
+        val x2 = x - sideLength / 2;
+        val y2 = y; // Bottom-left vertex
+        val x3 = x + sideLength / 2;
+        val y3 = y; // Bottom-right vertex
+
+        // Draw the triangle
+        shape.triangle(x1, y1, x2, y2, x3, y3);
+    }
+
+    private fun drawDownTriangle(x:Float, y:Float, sideLength:Float, shape: ShapeRenderer) {
+        val h = (kotlin.math.sqrt(3f) / 2) * sideLength; // Height of the triangle
+
+        // Calculate vertices
+        val x1 = x;
+        val y1 = y; // Bottom vertex
+        val x2 = x - sideLength / 2;
+        val y2 = y - h; // Top-left vertex (aligned with upward triangle's top vertex)
+        val x3 = x + sideLength / 2;
+        val y3 = y - h; // Top-right vertex
+
+        shape.triangle(x1, y1, x2, y2, x3, y3);
     }
 }

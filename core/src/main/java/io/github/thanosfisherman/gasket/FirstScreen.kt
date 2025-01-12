@@ -22,7 +22,7 @@ class FirstScreen(private val game: Game) : KtxScreen {
     //private val camera = OrthographicCamera().apply { setToOrtho(false, 800f, 800f) }
 
     //private val vector = vec3(Gdx.input.x.toFloat(), Gdx.input.y.toFloat())
-    private val gameViewport = FitViewport(900f, 900f)
+    private val gameViewport = FitViewport(1000f, 1000f)
     private val uiViewport = ScreenViewport()
 
     private val batch = SpriteBatch()
@@ -30,7 +30,7 @@ class FirstScreen(private val game: Game) : KtxScreen {
 
     private val fps = FrameRate()
     private val screenshot =
-        HighResScreenshot(shape, Gdx.graphics.backBufferWidth, Gdx.graphics.backBufferHeight)
+        HighResScreenshot(shape, Gdx.graphics.width, Gdx.graphics.height)
     private val gasketPool: Pool<Gasket> = pool(30) { Gasket(gameViewport.worldWidth, gameViewport.worldHeight) }
     lateinit var gasket: Gasket
 
@@ -90,7 +90,7 @@ class FirstScreen(private val game: Game) : KtxScreen {
         if (Gdx.input.isKeyPressed(Keys.ESCAPE))
             Gdx.app.exit()
 
-        Gdx.gl.glLineWidth(1.64f)
+       // Gdx.gl.glLineWidth(1.64f)
 
         gameViewport.apply()
         shape.projectionMatrix = gameViewport.camera.combined

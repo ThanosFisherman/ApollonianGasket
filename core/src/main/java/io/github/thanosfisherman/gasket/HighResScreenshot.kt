@@ -48,7 +48,7 @@ class HighResScreenshot(
 
     fun takeScreenshot() {
         val pixmap = Pixmap.createFromFrameBuffer(0, 0, screenshotWidth, screenshotHeight)
-        val pixels = pixmap.getPixels();
+        val pixels = pixmap.pixels;
 
         // This loop makes sure the whole screenshot is opaque and looks exactly like what the user is seeing
         val size = screenshotWidth * screenshotHeight * 4
