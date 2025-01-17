@@ -63,7 +63,7 @@ class Gasket(private val width: Float, private val height: Float) : Pool.Poolabl
             it.init(
                 width / 2,
                 height / 2,
-                -1 / (width / 2),
+                -1 / (width / 3),
                 colorRandomizer.randomColor(),
                 coneSegments,
                 isConeShape

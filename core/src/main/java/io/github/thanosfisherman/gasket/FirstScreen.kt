@@ -95,7 +95,7 @@ class FirstScreen(private val game: Game) : KtxScreen {
         gameViewport.apply()
         shape.projectionMatrix = gameViewport.camera.combined
 
-        shape.begin(ShapeRenderer.ShapeType.Line)
+        shape.begin(ShapeRenderer.ShapeType.Filled)
         gasket.draw(shape)
         shape.end()
 

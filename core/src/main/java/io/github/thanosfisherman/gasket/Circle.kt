@@ -41,6 +41,7 @@ data class Circle(
         this.segments = segments
         this.isCone = isCone
     }
+
     val ran = MathUtils.random(1)
     fun draw(shape: ShapeRenderer, x: Float = this.center.real, y: Float = this.center.img, color: Color = this.color) {
 
@@ -49,9 +50,9 @@ data class Circle(
 
 
         if (ran < 1)
-            drawUpTriangle(x,y,radius,shape)
+            drawUpTriangle(x, y, 16f, shape)
         else
-            drawDownTriangle(x,y,radius,shape)
+            drawDownTriangle(x, y, 16f, shape)
     }
 
     fun distance(other: Circle): Float {
@@ -59,8 +60,8 @@ data class Circle(
     }
 
 
-// Function to draw an equilateral triangle
-private fun drawUpTriangle(x:Float, y:Float, sideLength:Float, shape: ShapeRenderer) {
+    // Function to draw an equilateral triangle
+    private fun drawUpTriangle(x: Float, y: Float, sideLength: Float, shape: ShapeRenderer) {
         val h = (kotlin.math.sqrt(3f) / 2) * sideLength; // Height of the triangle
 
         // Calculate vertices
@@ -75,7 +76,7 @@ private fun drawUpTriangle(x:Float, y:Float, sideLength:Float, shape: ShapeRende
         shape.triangle(x1, y1, x2, y2, x3, y3);
     }
 
-    private fun drawDownTriangle(x:Float, y:Float, sideLength:Float, shape: ShapeRenderer) {
+    private fun drawDownTriangle(x: Float, y: Float, sideLength: Float, shape: ShapeRenderer) {
         val h = (kotlin.math.sqrt(3f) / 2) * sideLength; // Height of the triangle
 
         // Calculate vertices
