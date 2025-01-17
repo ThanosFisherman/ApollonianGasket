@@ -15,5 +15,12 @@ buildscript {
         classpath(Dependencies.Plugins.ANDROID_GRADLE_PLUGIN)
         classpath(Dependencies.Plugins.KOTLIN_GRADLE_PLUGIN)
     }
+
+//    subprojects {
+//        configurations.configureEach {
+//            // Check for updates every sync
+//            resolutionStrategy.cacheChangingModulesFor(0, "seconds")
+//        }
+//    }
 }
 
