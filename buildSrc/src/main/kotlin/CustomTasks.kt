@@ -6,10 +6,7 @@ import org.gradle.api.tasks.JavaExec
 import org.gradle.api.tasks.bundling.Tar
 import org.gradle.api.tasks.bundling.Zip
 import org.gradle.jvm.tasks.Jar
-import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.get
-import org.gradle.kotlin.dsl.getByName
-import org.gradle.kotlin.dsl.register
+import org.gradle.kotlin.dsl.*
 import java.io.File
 import java.util.*
 
